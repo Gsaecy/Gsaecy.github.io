@@ -1,0 +1,71 @@
+baseURL = 'https://Gsaecy.github.io/'
+languageCode = 'zh-cn'
+title = 'AI行业观察站'
+theme = 'PaperMod'
+
+# 网站参数
+[params]
+  # 主页信息
+  [params.homeInfoParams]
+    Title = 'AI行业观察站'
+    Content = '''
+每日自动搜集分析各行业最新动态
+🤖 由AI驱动的智能分析博客
+
+涵盖：科技、金融、教育、医疗、电商等领域
+
+⏰ 每日上午10点自动更新
+
+[查看今日分析 →](/posts/)
+'''
+  
+  # 外观设置
+  defaultTheme = 'auto'
+  displayFullLangName = true
+  
+  # 社交链接
+  [[params.socialIcons]]
+    name = 'github'
+    title = 'GitHub'
+    url = 'https://github.com/Gsaecy'
+  
+  # 文章设置
+  ShowReadingTime = true
+  ShowShareButtons = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+
+# 菜单配置
+[[menu.main]]
+  identifier = 'posts'
+  name = '最新分析'
+  url = '/posts/'
+  weight = 1
+
+[[menu.main]]
+  identifier = 'categories'
+  name = '行业分类'
+  url = '/categories/'
+  weight = 2
+
+[[menu.main]]
+  identifier = 'tags'
+  name = '热门标签'
+  url = '/tags/'
+  weight = 3
+
+[[menu.main]]
+  identifier = 'about'
+  name = '关于本站'
+  url = '/about/'
+  weight = 4
+
+# 构建设置
+[build]
+  writeStats = true
+  useResourceCacheWhen = 'fallback'
+
+# 服务设置
+[server]
+  port = 1313
