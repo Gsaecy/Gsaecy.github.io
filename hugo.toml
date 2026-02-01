@@ -1,33 +1,52 @@
 baseURL = 'https://Gsaecy.github.io/'
 languageCode = 'zh-cn'
-title = 'AI行业观察站'
+title = 'AI智汇观察'
 theme = 'PaperMod'
 
 # 网站参数
 [params]
   # 主页信息
   [params.homeInfoParams]
-    Title = 'AI行业观察站'
+    Title = '🤖 AI智汇观察'
     Content = '''
-每日自动搜集分析各行业最新动态
-🤖 由AI驱动的智能分析博客
+### 每日AI驱动的行业深度分析
 
-涵盖：科技、金融、教育、医疗、电商等领域
+🚀 **全自动智能博客系统**
+- 📊 每日自动采集各行业数据
+- 🧠 AI智能分析与趋势预测  
+- 📈 结构化报告自动生成
+- ⏰ 定时发布与更新
 
-⏰ 每日上午10点自动更新
+### 📌 覆盖领域
+- **科技前沿**：AI、云计算、区块链
+- **金融洞察**：投资趋势、市场分析
+- **教育创新**：在线教育、教育科技
+- **医疗健康**：数字医疗、生物科技
+- **电商零售**：新零售、消费趋势
+- **智能制造**：工业4.0、自动化
 
-[查看今日分析 →](/posts/)
+### ⚡ 今日热点
+> 系统正在分析今日行业动态...
+> 最新报告将在10:00自动发布
+
+[📖 查看最新分析 →](/posts/)
 '''
   
   # 外观设置
   defaultTheme = 'auto'
   displayFullLangName = true
+  homeInfoParamsType = 'custom'
   
   # 社交链接
   [[params.socialIcons]]
     name = 'github'
-    title = 'GitHub'
+    title = 'GitHub源码'
     url = 'https://github.com/Gsaecy'
+  
+  [[params.socialIcons]]
+    name = 'rss'
+    title = 'RSS订阅'
+    url = '/index.xml'
   
   # 文章设置
   ShowReadingTime = true
@@ -35,37 +54,96 @@ theme = 'PaperMod'
   ShowPostNavLinks = true
   ShowBreadCrumbs = true
   ShowCodeCopyButtons = true
+  ShowWordCount = true
+  
+  # 评论系统（预留）
+  # comments = true
+  # commentsProvider = "utterances"
+  
+  # 分析统计（预留）
+  # analytics = { google = "你的GA ID" }
+  
+  # 特色功能
+  [params.features]
+    autoUpdate = true
+    aiAnalysis = true
+    dataVisualization = true
+    mobileFriendly = true
+  
+  # 页脚信息
+  [params.footer]
+    since = 2026
+    customText = "由AI驱动的智能分析平台 | 数据仅供参考"
 
 # 菜单配置
 [[menu.main]]
   identifier = 'posts'
-  name = '最新分析'
+  name = '📊 最新分析'
   url = '/posts/'
   weight = 1
 
 [[menu.main]]
   identifier = 'categories'
-  name = '行业分类'
+  name = '🏷️ 行业分类'
   url = '/categories/'
   weight = 2
 
 [[menu.main]]
   identifier = 'tags'
-  name = '热门标签'
+  name = '🔖 热门标签'
   url = '/tags/'
   weight = 3
 
 [[menu.main]]
-  identifier = 'about'
-  name = '关于本站'
-  url = '/about/'
+  identifier = 'archive'
+  name = '📚 文章归档'
+  url = '/archives/'
   weight = 4
+
+[[menu.main]]
+  identifier = 'search'
+  name = '🔍 站内搜索'
+  url = '/search/'
+  weight = 5
+
+[[menu.main]]
+  identifier = 'about'
+  name = 'ℹ️ 关于本站'
+  url = '/about/'
+  weight = 6
+
+# 输出格式
+[outputs]
+  home = ['HTML', 'RSS', 'JSON']
 
 # 构建设置
 [build]
   writeStats = true
   useResourceCacheWhen = 'fallback'
+  noChmod = true
+  noTimes = true
+
+# 标记设置
+[taxonomies]
+  category = 'categories'
+  tag = 'tags'
+  series = 'series'
 
 # 服务设置
 [server]
   port = 1313
+
+# 图片处理
+[imaging]
+  resampleFilter = 'CatmullRom'
+  quality = 85
+  anchor = 'Smart'
+
+# 安全头
+[security]
+  [security.exec]
+    allow = ['^dart-sass-embedded$', '^go$', '^npx$', '^postcss$']
+    osEnv = ['(?i)^(PATH|PATHEXT|APPDATA|TMP|TEMP|TERM)$']
+  
+  [security.funcs]
+    getenv = ['^HUGO_', '^CI$', '^GITHUB_']
