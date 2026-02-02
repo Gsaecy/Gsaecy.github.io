@@ -208,37 +208,37 @@ publishing:
 # Figma设计自动化配置
 figma:
   access_token: "${FIGMA_ACCESS_TOKEN}"  # 从环境变量读取
-  enabled: false  # 默认关闭，配置后开启
+  enabled: true  # 启用Figma自动化
   
   # 设计模板配置
   templates:
     wechat_article:
-      file_key: ""  # 公众号模板文件ID
+      file_key: "GHZFIC9s6XJsNWKlA6XOl3"  # 你的Figma文件ID
       node_map:
-        title: ""  # 标题节点ID
-        author: ""  # 作者节点ID
-        date: ""  # 日期节点ID
-        content: ""  # 正文节点ID
-        cover_image: ""  # 封面图节点ID
-        summary: ""  # 摘要节点ID
+        title: "YOUR_TITLE_NODE_ID"  # 需要替换为实际节点ID
+        author: "YOUR_AUTHOR_NODE_ID"
+        date: "YOUR_DATE_NODE_ID"
+        content: "YOUR_CONTENT_NODE_ID"
+        cover_image: "YOUR_COVER_NODE_ID"
+        summary: "YOUR_SUMMARY_NODE_ID"
     
     xiaohongshu_note:
-      file_key: ""  # 小红书模板文件ID
+      file_key: "GHZFIC9s6XJsNWKlA6XOl3"  # 使用同一个文件的不同页面
       node_map:
-        cover: ""  # 封面节点ID
-        title: ""  # 标题节点ID
-        content: ""  # 正文节点ID
-        tags: ""  # 标签节点ID
-        profile: ""  # 个人资料节点ID
+        cover: "YOUR_COVER_NODE_ID"
+        title: "YOUR_TITLE_NODE_ID"
+        content: "YOUR_CONTENT_NODE_ID"
+        tags: "YOUR_TAGS_NODE_ID"
+        profile: "YOUR_PROFILE_NODE_ID"
     
     weibo_card:
-      file_key: ""  # 微博模板文件ID
+      file_key: "GHZFIC9s6XJsNWKlA6XOl3"  # 使用同一个文件的不同页面
       node_map:
-        headline: ""  # 主标题节点ID
-        subtitle: ""  # 副标题节点ID
-        key_points: ""  # 关键点节点ID
-        hashtags: ""  # 话题标签节点ID
-        qrcode: ""  # 二维码节点ID
+        headline: "YOUR_HEADLINE_NODE_ID"
+        subtitle: "YOUR_SUBTITLE_NODE_ID"
+        key_points: "YOUR_KEYPOINTS_NODE_ID"
+        hashtags: "YOUR_HASHTAGS_NODE_ID"
+        qrcode: "YOUR_QRCODE_NODE_ID"
   
   # 导出配置
   export:

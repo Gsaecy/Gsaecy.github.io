@@ -9,8 +9,14 @@ import json
 
 def test_figma_api():
     """测试Figma API连接"""
-    # 使用你提供的token
-    token = "figd_VV2b7lrIFNS0KCPtds23Sdjpp3jxRj_IMaiYCvd_"
+    # 从环境变量读取token
+    token = os.getenv('FIGMA_ACCESS_TOKEN', '')
+    
+    if not token:
+        print("❌ 未找到FIGMA_ACCESS_TOKEN环境变量")
+        print("   请设置环境变量: export FIGMA_ACCESS_TOKEN=你的token")
+        print("   或在GitHub Secrets中配置")
+        return False
     
     headers = {
         'X-Figma-Token': token,
@@ -18,7 +24,10 @@ def test_figma_api():
     }
     
     print("🔗 测试Figma API连接...")
-    print(f"Token: {token[:10]}...{token[-10:]}")
+    if token:
+        print(f"Token: {token[:10]}...{token[-10:]}")
+    else:
+        print("Token: 未设置")
     
     try:
         # 测试1: 获取用户信息（验证token有效性）
@@ -120,7 +129,7 @@ def create_sample_config():
     """创建示例配置文件"""
     config = {
         'figma': {
-            'access_token': 'figd_VV2b7lrIFNS0KCPtds23Sdjpp3jxRj_IMaiYCvd_',
+            'access_token': '${FIGMA_ACCESS_TOKEN}',  # 从环境变量读取
             'enabled': True,
             'templates': {
                 'wechat_article': {
