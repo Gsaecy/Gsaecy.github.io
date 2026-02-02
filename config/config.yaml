@@ -171,7 +171,36 @@ publishing:
   quality_check: true
   min_quality_score: 0.7  # 内容质量阈值
   
-  # 社交媒体同步（可选）
+  # Hugo博客发布配置
+  hugo:
+    content_dir: "./content/posts"
+    max_posts_per_day: 3
+    auto_deploy: true
+    optimize_for_wechat: true  # 为微信公众号优化内容
+  
+  # 微信公众号发布配置
+  wechat:
+    enabled: false  # 默认关闭，需要配置API密钥后开启
+    app_id: ""  # 微信公众号AppID
+    app_secret: ""  # 微信公众号AppSecret
+    auto_publish: false  # 是否自动发布（false时保存为草稿）
+    draft_mode: true  # 默认为草稿模式
+    cover_image: ""  # 封面图media_id
+    
+    # 发布时间策略
+    publish_schedule:
+      enabled: false
+      best_times: ["20:00", "21:00", "12:00"]  # 最佳发布时间
+      avoid_times: ["00:00-08:00", "14:00-15:00"]  # 避免发布时间
+    
+    # 内容优化配置
+    optimization:
+      add_guide: true  # 添加引导语
+      bold_key_data: true  # 关键数据加粗
+      add_interaction: true  # 添加互动问题
+      add_footer: true  # 添加关注引导
+  
+  # 其他社交媒体同步（可选）
   social_media:
     enabled: false
     platforms: ["weibo", "zhihu"]

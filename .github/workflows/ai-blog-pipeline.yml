@@ -29,8 +29,10 @@ jobs:
       - name: Run automation pipeline
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          WECHAT_APP_ID: ${{ secrets.WECHAT_APP_ID }}
+          WECHAT_APP_SECRET: ${{ secrets.WECHAT_APP_SECRET }}
         run: |
-          python scripts/automation_system_v2.py
+          python scripts/automation_system_v3.py
 
       - name: Commit and push generated content
         run: |
