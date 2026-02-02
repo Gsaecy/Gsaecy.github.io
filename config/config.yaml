@@ -205,6 +205,53 @@ publishing:
     enabled: false
     platforms: ["weibo", "zhihu"]
 
+# Figma设计自动化配置
+figma:
+  access_token: "${FIGMA_ACCESS_TOKEN}"  # 从环境变量读取
+  enabled: false  # 默认关闭，配置后开启
+  
+  # 设计模板配置
+  templates:
+    wechat_article:
+      file_key: ""  # 公众号模板文件ID
+      node_map:
+        title: ""  # 标题节点ID
+        author: ""  # 作者节点ID
+        date: ""  # 日期节点ID
+        content: ""  # 正文节点ID
+        cover_image: ""  # 封面图节点ID
+        summary: ""  # 摘要节点ID
+    
+    xiaohongshu_note:
+      file_key: ""  # 小红书模板文件ID
+      node_map:
+        cover: ""  # 封面节点ID
+        title: ""  # 标题节点ID
+        content: ""  # 正文节点ID
+        tags: ""  # 标签节点ID
+        profile: ""  # 个人资料节点ID
+    
+    weibo_card:
+      file_key: ""  # 微博模板文件ID
+      node_map:
+        headline: ""  # 主标题节点ID
+        subtitle: ""  # 副标题节点ID
+        key_points: ""  # 关键点节点ID
+        hashtags: ""  # 话题标签节点ID
+        qrcode: ""  # 二维码节点ID
+  
+  # 导出配置
+  export:
+    formats: ["png", "jpg"]  # 导出格式
+    scale: 2.0  # 缩放比例（2x为视网膜屏优化）
+    quality: 90  # 图片质量（1-100）
+    
+  # 自动化设置
+  automation:
+    auto_create_designs: true  # 自动创建设计
+    auto_export: true  # 自动导出图片
+    cache_duration: 3600  # 缓存时间（秒）
+
 # 监控和优化
 monitoring:
   deepseek_usage:
