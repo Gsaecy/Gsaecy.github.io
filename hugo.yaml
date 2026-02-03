@@ -4,7 +4,8 @@ defaultContentLanguage: "zh-cn"
 hasCJKLanguage: true
 
 title: "AI智汇观察"
-author: "AI智汇观察"
+author:
+  name: "AI智汇观察"
 
 timeZone: "Asia/Shanghai"
 
@@ -22,6 +23,7 @@ params:
   mainSections: ["posts"]
   rssFullContent: true
   customCSS: ["css/custom.css"]
+  author: "AI智汇观察"
   
   sidebar:
     emoji: "🤖"
