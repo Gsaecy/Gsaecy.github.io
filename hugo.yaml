@@ -8,62 +8,65 @@ author: "AI智汇观察"
 
 timeZone: "Asia/Shanghai"
 
-theme: "dream"
+theme: "hugo-theme-stack"
 
 pagination:
   pagerSize: 12
 
 enableRobotsTXT: true
 
-Services:
-  GoogleAnalytics:
-    ID: ""
-
 permalinks:
   posts: "/posts/:slug/"
 
 params:
-  # Themes
-  lightTheme: "emerald"
-  darkTheme: "forest"
-
-  author: "AI智汇观察"
-  description: "AI驱动的行业洞察：科技 / 金融 / 新能源汽车"
-  avatar: "img/avatar.svg"
-
-  headerTitle: "AI智汇观察"
-  motto: "每天 08:00 / 10:00 / 12:00 / 18:00 / 21:00 自动发布"
-
-  siteStartYear: 2026
-
-  # Options (keep it simple first)
-  stickyNav: true
-  showTableOfContents: true
-  showSummaryCoverInPost: true
-  imageZoomableInPost: true
-  showPrevNextPost: true
-
-  # Enable custom styles
-  advanced:
-    customCSS:
-      - "css/custom.css"
+  mainSections: ["posts"]
+  rssFullContent: true
+  
+  sidebar:
+    emoji: "🤖"
+    subtitle: "每日AI驱动的行业深度分析｜科技 / 金融 / 新能源汽车"
+    avatar: "img/avatar.svg"
+  
+  article:
+    headingAnchor: true
+    math: false
+    readingTime: true
+  
+  widgets:
+    homepage:
+      - type: "search"
+      - type: "archives"
+        params:
+          limit: 8
+      - type: "categories"
+        params:
+          limit: 12
+      - type: "tag-cloud"
+        params:
+          limit: 20
+    page:
+      - type: "toc"
+  
+  colorScheme:
+    toggle: true
+    default: "auto"
 
 menu:
   main:
     - identifier: posts
-      name: "文章"
+      name: "📊 最新分析"
       url: "/posts/"
       weight: 1
     - identifier: categories
-      name: "分类"
+      name: "🏷️ 行业分类"
       url: "/categories/"
       weight: 2
     - identifier: tags
-      name: "标签"
+      name: "🔖 热门标签"
       url: "/tags/"
       weight: 3
     - identifier: about
-      name: "关于"
+      name: "ℹ️ 关于本站"
       url: "/about/"
       weight: 4
 
