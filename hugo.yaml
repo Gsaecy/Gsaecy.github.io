@@ -15,8 +15,8 @@ pagination:
 
 enableRobotsTXT: true
 
-services:
-  googleAnalytics:
+Services:
+  GoogleAnalytics:
     ID: ""
 
 permalinks:
