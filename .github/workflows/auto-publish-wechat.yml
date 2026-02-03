@@ -247,8 +247,6 @@ jobs:
           echo "original_file=${ORIGINAL_FILE}" >> $GITHUB_OUTPUT
           echo "wechat_file=${WECHAT_FILE}" >> $GITHUB_OUTPUT
         shell: bash
-        env:
-          ORIGINAL_FILE: content/posts/${{ steps.topic.outputs.filename }}.md
 
       - name: Auto add charts (data-driven illustrations)
         run: |
