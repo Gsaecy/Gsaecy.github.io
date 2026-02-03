@@ -88,8 +88,8 @@ jobs:
         run: |
           echo "💾 提交生成的內容..."
           
-          # 添加所有更改
-          git add content/posts/ data/ logs/
+          # 添加所有更改（强制添加 logs 目录）
+          git add content/posts/ data/ logs/ -f
           
           # 检查是否有更改
           if git diff --cached --quiet; then

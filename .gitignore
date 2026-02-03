@@ -56,8 +56,7 @@ venv.bak/
 ehthumbs.db
 Thumbs.db
 
-# Logs
-logs/
+# Logs - keep logs directory tracked for automation
 *.log
 
 # Data
