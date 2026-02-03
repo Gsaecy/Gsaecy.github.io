@@ -1,8 +1,9 @@
 name: Auto Publish WeChat Articles
 
 concurrency:
-  group: pages-deploy
-  cancel-in-progress: true
+  # 允许同一天手动补发多篇，不互相取消（Pages 部署仍会在 GitHub 侧排队）
+  group: auto-publish-${{ github.workflow }}
+  cancel-in-progress: false
 
 on:
   # 定时触发：每天发布 2 篇（北京时间 08:00 / 18:00）
