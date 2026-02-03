@@ -211,7 +211,19 @@ def insert_chart_markdown(lines: List[str], table: Table, rel_img_url: str, fig_
     return lines[:insert_at] + block + lines[insert_at:]
 
 
-def process_post(md_path: Path) -> int:
+def is_key_table(t: Table) -> bool:
+    header_text = " ".join(t.header)
+    if any(k in header_text for k in ["来源", "数据来源"]):
+        return True
+    if any(k in header_text for k in ["销量", "市场", "份额", "增长", "渗透", "规模", "收入", "用户", "装机"]):
+        return True
+    joined = " ".join(" ".join(r) for r in t.rows)
+    if "待更新" in joined:
+        return False
+    return len(t.rows) >= 3 and bool(re.search(r"\d", joined))
+
+
+def process_post(md_path: Path, key_only: bool = True) -> int:
     text = md_path.read_text(encoding="utf-8")
     lines = text.splitlines()
 
@@ -238,6 +250,8 @@ def process_post(md_path: Path) -> int:
     # We will rebuild lines iteratively; indices shift after insertion
     offset = 0
     for t in tables:
+        if key_only and (not is_key_table(t)):
+            continue
         t2 = Table(t.header, t.rows, t.start_idx + offset, t.end_idx + offset)
         if already_has_chart_after(lines, t2.end_idx):
             continue
@@ -264,17 +278,20 @@ def process_post(md_path: Path) -> int:
 
 
 def main() -> None:
-    if len(sys.argv) < 2:
-        print("Usage: python3 scripts/auto_illustrate.py <post.md> [...]")
-        sys.exit(1)
+    import argparse
+
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--all", action="store_true", help="Illustrate all numeric tables (default: key tables only)")
+    ap.add_argument("posts", nargs="+", help="Markdown post paths")
+    args = ap.parse_args()
 
     total = 0
-    for p in sys.argv[1:]:
+    for p in args.posts:
         md = Path(p)
         if not md.exists():
             print(f"Skip missing: {md}")
             continue
-        n = process_post(md)
+        n = process_post(md, key_only=(not args.all))
         print(f"Illustrated {md}: {n} chart(s)")
         total += n
 

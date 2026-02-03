@@ -246,6 +246,12 @@ jobs:
           else
             echo "未找到文章文件，跳过公开配图"
           fi
+
+      - name: Validate illustrations
+        run: |
+          echo "校验插图规则：至少1张公开配图 + 每个关键表格1张图表..."
+          ORIGINAL_FILE="${{ steps.generate.outputs.original_file }}"
+          python3 scripts/validate_illustrations.py "$ORIGINAL_FILE"
       
       - name: Format for WeChat
         run: |
