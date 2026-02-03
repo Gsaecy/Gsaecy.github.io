@@ -23,6 +23,10 @@
 | 美国 | 250 | 25% | 13.9% | EV Volumes |
 | 其他地区 | 150 | 45% | 8.3% | 行业统计 |
 
+![2025年销量（万辆）（数据来源：ACEA、EV Volumes、中汽协、行业统计；图表生成：QuickChart）](/images/posts/new-energy-vehicle-trends-20260202-222400/chart-1.png)
+图1：2025年销量（万辆）（数据来源：ACEA、EV Volumes、中汽协、行业统计；图表生成：QuickChart）
+
+
 ### 中国市场细分
 
 中国作为全球最大新能源汽车市场，呈现以下特点：
