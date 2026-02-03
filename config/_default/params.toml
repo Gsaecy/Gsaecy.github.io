@@ -1,0 +1,57 @@
+# Hugo Theme Stack parameters
+
+# Pages placed under these sections will be shown on homepage and archive page.
+mainSections = ["posts"]
+
+# Output page's full content in RSS.
+rssFullContent = true
+
+# Accepted values: "default", "lastmod"
+SortBy = "default"
+
+[favicon]
+
+[footer]
+  since = 2026
+  customText = "由AI驱动的智能分析平台 | 数据仅供参考"
+
+[dateFormat]
+  published   = ":date_full"
+  lastUpdated = ":date_full"
+
+[sidebar]
+  emoji    = "🤖"
+  subtitle = "每日 AI 驱动的行业深度分析｜科技 / 金融 / 新能源汽车"
+  avatar   = "img/avatar.svg"
+
+[article]
+  headingAnchor = true
+  math          = false
+  readingTime   = true
+
+  [article.license]
+    enabled = true
+    default = "内容为自动生成与公开信息整理，转载请注明来源"
+
+[widgets]
+  homepage = [
+    { type = "search" },
+    { type = "archives", params = { limit = 8 } },
+    { type = "categories", params = { limit = 12 } },
+    { type = "tag-cloud", params = { limit = 20 } },
+  ]
+  page = [
+    { type = "toc" },
+  ]
+
+[opengraph.twitter]
+  site = ""
+  card = "summary_large_image"
+
+[colorScheme]
+  toggle  = true
+  default = "auto"
+
+[comments]
+  enabled  = false
+  provider = ""

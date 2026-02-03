@@ -1,81 +1,24 @@
 baseURL = 'https://gsaecy.github.io/'
 languageCode = 'zh-cn'
 title = 'AI智汇观察'
-theme = 'PaperMod'
+theme = 'hugo-theme-stack'
 
-# 网站参数
-[params]
-  # 主页信息
-  [params.homeInfoParams]
-    Title = '🤖 AI智汇观察'
-    Content = '''
-### 每日AI驱动的行业深度分析
+defaultContentLanguage = 'zh-cn'
+hasCJKLanguage = true
 
-🚀 **全自动智能博客系统**
-- 📊 每日自动采集各行业数据
-- 🧠 AI智能分析与趋势预测  
-- 📈 结构化报告自动生成
-- ⏰ 定时发布与更新
+enableRobotsTXT = true
 
-### 📌 覆盖领域
-- **科技前沿**：AI、云计算、区块链
-- **金融洞察**：投资趋势、市场分析
-- **教育创新**：在线教育、教育科技
-- **医疗健康**：数字医疗、生物科技
-- **电商零售**：新零售、消费趋势
-- **智能制造**：工业4.0、自动化
+author = 'AI智汇观察'
 
-### 今日更新节奏
-> 系统会在以下时间自动发布新内容（北京时间）：08:00 / 10:00 / 12:00 / 18:00 / 21:00
-> 若遇到 GitHub Actions 异常，发布时间可能顺延，以实际发布为准
+[pagination]
+  pagerSize = 10
 
-[📖 查看最新分析 →](/posts/)
-'''
-  
-  # 外观设置
-  defaultTheme = 'auto'
-  displayFullLangName = true
-  homeInfoParamsType = 'custom'
-  
-  # 社交链接
-  [[params.socialIcons]]
-    name = 'github'
-    title = 'GitHub源码'
-    url = 'https://github.com/Gsaecy'
-  
-  [[params.socialIcons]]
-    name = 'rss'
-    title = 'RSS订阅'
-    url = '/index.xml'
-  
-  # 文章设置
-  ShowReadingTime = true
-  ShowShareButtons = true
-  ShowPostNavLinks = true
-  ShowBreadCrumbs = true
-  ShowCodeCopyButtons = true
-  ShowWordCount = true
-  
-  # 评论系统（预留）
-  # comments = true
-  # commentsProvider = "utterances"
-  
-  # 分析统计（预留）
-  # analytics = { google = "你的GA ID" }
-  
-  # 特色功能
-  [params.features]
-    autoUpdate = true
-    aiAnalysis = true
-    dataVisualization = true
-    mobileFriendly = true
-  
-  # 页脚信息
-  [params.footer]
-    since = 2026
-    customText = "由AI驱动的智能分析平台 | 数据仅供参考"
+[permalinks]
+  posts = '/posts/:slug/'
 
-# 菜单配置
+[outputs]
+  home = ['HTML', 'RSS']
+
 [[menu.main]]
   identifier = 'posts'
   name = '📊 最新分析'
@@ -111,39 +54,3 @@ theme = 'PaperMod'
   name = 'ℹ️ 关于本站'
   url = '/about/'
   weight = 6
-
-# 输出格式
-[outputs]
-  home = ['HTML', 'RSS', 'JSON']
-
-# 构建设置
-[build]
-  writeStats = true
-  useResourceCacheWhen = 'fallback'
-  noChmod = true
-  noTimes = true
-
-# 标记设置
-[taxonomies]
-  category = 'categories'
-  tag = 'tags'
-  series = 'series'
-
-# 服务设置
-[server]
-  port = 1313
-
-# 图片处理
-[imaging]
-  resampleFilter = 'CatmullRom'
-  quality = 85
-  anchor = 'Smart'
-
-# 安全头
-[security]
-  [security.exec]
-    allow = ['^dart-sass-embedded$', '^go$', '^npx$', '^postcss$']
-    osEnv = ['(?i)^(PATH|PATHEXT|APPDATA|TMP|TEMP|TERM)$']
-  
-  [security.funcs]
-    getenv = ['^HUGO_', '^CI$', '^GITHUB_']
