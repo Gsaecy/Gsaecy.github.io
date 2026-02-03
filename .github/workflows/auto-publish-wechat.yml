@@ -30,7 +30,7 @@ on:
           - manufacturing
 
 env:
-  HUGO_VERSION: '0.120.4'
+  HUGO_VERSION: '0.155.1'
   BLOG_URL: 'https://gsaecy.github.io'
 
 jobs:
