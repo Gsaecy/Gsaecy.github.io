@@ -136,6 +136,7 @@ jobs:
           TOPIC: ${{ steps.topic.outputs.topic }}
           INDUSTRY: ${{ steps.topic.outputs.industry }}
           FILENAME: ${{ steps.topic.outputs.filename }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: |
           echo "🗞️ 采集行业头部媒体RSS并生成文章..."
 
