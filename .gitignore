@@ -67,9 +67,11 @@ data/processed/
 *.sqlite
 
 # Config
-config/config.yaml
 config/secret.yaml
 
 # Temporary files
 tmp/
 temp/
+
+# Embedded repo folder (not part of blog)
+ralph-loop/
