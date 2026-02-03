@@ -131,118 +131,118 @@ jobs:
           mkdir -p content/posts
 
           ORIGINAL_FILE="$ORIGINAL_FILE" python3 - <<'PY'
-from pathlib import Path
-import os, datetime
-
-original_file = Path(os.environ["ORIGINAL_FILE"])
-topic = os.environ["TOPIC"]
-industry = os.environ["INDUSTRY"]
-filename = os.environ["FILENAME"]
-blog_url = os.environ["BLOG_URL"]
-
-now_cn = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8)))
-now_cn_str = now_cn.strftime("%Y-%m-%d %H:%M:%S %z")
-analysis_time = now_cn.strftime("%Y年%m月%d日 %H:%M")
-
-tpl = f"""---
-title: \"{topic}\"
-date: {now_cn_str}
-draft: false
-categories: [\"{industry}\"]
-tags: [\"{industry}\", \"auto\"]
----
-
-# {topic}
-
-*分析时间：{analysis_time} | 数据驱动分析 | 作者：AI智汇观察系统*
-
----
-
-## 核心摘要
-
-本文基于最新行业数据和趋势分析，深入探讨{topic}。通过多维度数据对比和专家观点，为读者提供全面的行业洞察和决策参考。
-
-## 市场现状
-
-根据最新行业报告，当前市场呈现以下特点：
-
-| 指标 | 当前状态 | 同比增长 | 数据来源 |
-|------|----------|----------|----------|
-| 市场规模 | 待更新 | 待更新 | 行业报告 |
-| 用户规模 | 待更新 | 待更新 | 官方统计 |
-| 渗透率 | 待更新 | 待更新 | 调研数据 |
-
-## 技术发展
-
-关键技术领域取得重要进展：
-
-1. **技术创新**：多项技术实现突破性进展
-2. **应用落地**：从实验室走向商业化应用
-3. **标准建立**：行业标准体系逐步完善
-4. **生态建设**：产业链协同发展
-
-## 趋势预测
-
-基于当前发展态势，预计未来将呈现以下趋势：
-
-### 短期趋势（1年内）
-1. 市场规模持续扩大
-2. 技术应用加速普及
-3. 竞争格局进一步分化
-4. 政策环境更加完善
-
-### 中期展望（2-3年）
-1. 行业进入成熟发展阶段
-2. 技术创新成为核心竞争力
-3. 产业链协同效应显现
-4. 国际化程度显著提升
-
-## 投资机会
-
-建议关注以下投资方向：
-
-1. **技术创新领域**：具有技术壁垒的细分赛道
-2. **应用场景拓展**：新兴应用场景的商业化机会
-3. **产业链关键环节**：供应链中的核心环节
-4. **服务模式创新**：基于新技术的新型服务模式
-
-## 风险提示
-
-需关注以下风险因素：
-
-1. **技术风险**：技术路线不确定性和迭代风险
-2. **政策风险**：监管政策变化可能影响行业发展
-3. **市场风险**：市场竞争加剧和需求波动
-4. **供应链风险**：关键原材料和零部件供应风险
-
----
-
-## 数据来源说明
-
-本文数据主要来源于：
-
-1. 行业权威机构发布的统计数据
-2. 上市公司财报和公开信息
-3. 专业研究机构的分析报告
-4. 政府部门发布的政策文件
-
-所有数据均经过交叉验证，确保准确性和时效性。
-
----
-
-*本文由AI智汇观察系统自动生成，基于多源数据分析和趋势预测。数据仅供参考，决策需结合具体情况。*
-
-**报告版本**：v1.0  
-**生成时间**：{now_cn.strftime('%Y-%m-%d %H:%M:%S')}  
-**数据更新**：基于最新可用数据
-
-**原文链接**：{blog_url}/posts/{filename}/
-"""
-
-original_file.parent.mkdir(parents=True, exist_ok=True)
-original_file.write_text(tpl, encoding="utf-8")
-print(f"✅ 原始文章已生成: {original_file}")
-PY
+          from pathlib import Path
+          import os, datetime
+          
+          original_file = Path(os.environ["ORIGINAL_FILE"])
+          topic = os.environ["TOPIC"]
+          industry = os.environ["INDUSTRY"]
+          filename = os.environ["FILENAME"]
+          blog_url = os.environ["BLOG_URL"]
+          
+          now_cn = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8)))
+          now_cn_str = now_cn.strftime("%Y-%m-%d %H:%M:%S %z")
+          analysis_time = now_cn.strftime("%Y年%m月%d日 %H:%M")
+          
+          tpl = f"""---
+          title: \"{topic}\"
+          date: {now_cn_str}
+          draft: false
+          categories: [\"{industry}\"]
+          tags: [\"{industry}\", \"auto\"]
+          ---
+          
+          # {topic}
+          
+          *分析时间：{analysis_time} | 数据驱动分析 | 作者：AI智汇观察系统*
+          
+          ---
+          
+          ## 核心摘要
+          
+          本文基于最新行业数据和趋势分析，深入探讨{topic}。通过多维度数据对比和专家观点，为读者提供全面的行业洞察和决策参考。
+          
+          ## 市场现状
+          
+          根据最新行业报告，当前市场呈现以下特点：
+          
+          | 指标 | 当前状态 | 同比增长 | 数据来源 |
+          |------|----------|----------|----------|
+          | 市场规模 | 待更新 | 待更新 | 行业报告 |
+          | 用户规模 | 待更新 | 待更新 | 官方统计 |
+          | 渗透率 | 待更新 | 待更新 | 调研数据 |
+          
+          ## 技术发展
+          
+          关键技术领域取得重要进展：
+          
+          1. **技术创新**：多项技术实现突破性进展
+          2. **应用落地**：从实验室走向商业化应用
+          3. **标准建立**：行业标准体系逐步完善
+          4. **生态建设**：产业链协同发展
+          
+          ## 趋势预测
+          
+          基于当前发展态势，预计未来将呈现以下趋势：
+          
+          ### 短期趋势（1年内）
+          1. 市场规模持续扩大
+          2. 技术应用加速普及
+          3. 竞争格局进一步分化
+          4. 政策环境更加完善
+          
+          ### 中期展望（2-3年）
+          1. 行业进入成熟发展阶段
+          2. 技术创新成为核心竞争力
+          3. 产业链协同效应显现
+          4. 国际化程度显著提升
+          
+          ## 投资机会
+          
+          建议关注以下投资方向：
+          
+          1. **技术创新领域**：具有技术壁垒的细分赛道
+          2. **应用场景拓展**：新兴应用场景的商业化机会
+          3. **产业链关键环节**：供应链中的核心环节
+          4. **服务模式创新**：基于新技术的新型服务模式
+          
+          ## 风险提示
+          
+          需关注以下风险因素：
+          
+          1. **技术风险**：技术路线不确定性和迭代风险
+          2. **政策风险**：监管政策变化可能影响行业发展
+          3. **市场风险**：市场竞争加剧和需求波动
+          4. **供应链风险**：关键原材料和零部件供应风险
+          
+          ---
+          
+          ## 数据来源说明
+          
+          本文数据主要来源于：
+          
+          1. 行业权威机构发布的统计数据
+          2. 上市公司财报和公开信息
+          3. 专业研究机构的分析报告
+          4. 政府部门发布的政策文件
+          
+          所有数据均经过交叉验证，确保准确性和时效性。
+          
+          ---
+          
+          *本文由AI智汇观察系统自动生成，基于多源数据分析和趋势预测。数据仅供参考，决策需结合具体情况。*
+          
+          **报告版本**：v1.0  
+          **生成时间**：{now_cn.strftime('%Y-%m-%d %H:%M:%S')}  
+          **数据更新**：基于最新可用数据
+          
+          **原文链接**：{blog_url}/posts/{filename}/
+          """
+          
+          original_file.parent.mkdir(parents=True, exist_ok=True)
+          original_file.write_text(tpl, encoding="utf-8")
+          print(f"✅ 原始文章已生成: {original_file}")
+          PY
 
           echo "original_file=${ORIGINAL_FILE}" >> $GITHUB_OUTPUT
           echo "wechat_file=${WECHAT_FILE}" >> $GITHUB_OUTPUT
