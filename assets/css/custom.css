@@ -1,0 +1,54 @@
+/* Unified post card styling for Hugo Theme Stack */
+
+:root {
+  --card-radius: 16px;
+  --card-border: 1px solid rgba(0, 0, 0, 0.08);
+  --card-shadow: 0 6px 22px rgba(0, 0, 0, 0.08);
+}
+
+/* Generic: most list items in Stack are articles inside .article-list */
+.article-list article,
+.article-list .article {
+  border-radius: var(--card-radius);
+  border: var(--card-border);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.article-list article:hover,
+.article-list .article:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* Make cover images consistent */
+.article-list img,
+.article-list .article-image img,
+.article-list .article-image {
+  display: block;
+}
+
+.article-list .article-image img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+/* Normalize title + excerpt spacing */
+.article-title,
+.article-list .article-title {
+  line-height: 1.25;
+}
+
+.article-list .article-content,
+.article-list .article-details {
+  padding: 14px 16px;
+}
+
+/* Avoid overly wide cards on large screens */
+@media (min-width: 1200px) {
+  .main-container {
+    max-width: 1180px;
+  }
+}
