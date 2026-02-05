@@ -123,7 +123,7 @@
     if (document.querySelector('[data-np-back="1"]')) return;
 
     const a = document.createElement('a');
-    a.href = '/posts/';
+    a.href = '/';
     a.className = 'np-back-pin';
     a.setAttribute('data-np-back', '1');
     a.setAttribute('aria-label', '返回桌面');
