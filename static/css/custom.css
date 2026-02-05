@@ -109,10 +109,31 @@ html[data-scheme="dark"] body {
   width: 260px;
   pointer-events: auto;
 }
-/* Keep menu from going under the fixed header */
-.sidebar.left-sidebar {
-  padding-top: 170px;
+
+/* Site meta: left aligned (match desk/newspaper layout) */
+.sidebar.left-sidebar .site-meta {
+  text-align: left;
 }
+.sidebar.left-sidebar .site-name,
+.sidebar.left-sidebar .site-description {
+  text-align: left;
+}
+
+/* Pin main menu to viewport as well */
+#main-menu {
+  position: fixed;
+  left: 22px;
+  top: 190px;
+  z-index: 9997;
+  width: 260px;
+}
+
+/* Leave room for fixed header/menu/lamp so content won't be hidden */
+.sidebar.left-sidebar {
+  padding-top: 0;
+  padding-bottom: 320px;
+}
+
 @media (max-width: 768px) {
   .sidebar.left-sidebar > header {
     left: 14px;
@@ -121,8 +142,17 @@ html[data-scheme="dark"] body {
     transform: scale(0.92);
     transform-origin: left top;
   }
+
+  #main-menu {
+    left: 14px;
+    top: 170px;
+    width: 220px;
+    transform: scale(0.95);
+    transform-origin: left top;
+  }
+
   .sidebar.left-sidebar {
-    padding-top: 150px;
+    padding-bottom: 260px;
   }
 }
 html[data-scheme="dark"] #main-menu {
