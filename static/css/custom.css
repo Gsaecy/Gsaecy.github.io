@@ -116,6 +116,22 @@ html[data-scheme="dark"] #main-menu {
   font-size: 0.78em;
   opacity: 0.65;
 }
+
+/* Give some breathing room so fixed lamp doesn't overlap menu too much */
+.sidebar.left-sidebar {
+  padding-bottom: 320px;
+}
+@media (max-width: 768px) {
+  .np-lamp {
+    left: 14px;
+    bottom: 14px;
+    transform: scale(0.78);
+    transform-origin: left bottom;
+  }
+  .sidebar.left-sidebar {
+    padding-bottom: 260px;
+  }
+}
 #main-menu li.current a span::before {
   content: "◇";
   opacity: 0.9;
@@ -484,11 +500,16 @@ html[data-scheme="dark"] .np-back-pin {
 
 /* Lamp toggle (image-based, matches reference) */
 .np-lamp {
-  position: relative;
+  /* Always float at fixed position for easy theme toggle */
+  position: fixed;
+  left: 22px;
+  bottom: 22px;
+  z-index: 9999;
+
   /* 3x bigger */
   width: 276px;
   height: 288px;
-  margin: 12px auto 6px;
+  margin: 0;
   cursor: pointer;
   user-select: none;
 }
@@ -519,6 +540,7 @@ html[data-scheme="dark"] .np-lamp__img {
   border-radius: 50%;
   pointer-events: none;
   opacity: 0;
+  z-index: 10000; /* top-most, avoid clipping */
   /* keep light mostly around lamp */
   background:
     radial-gradient(circle at 50% 45%, rgba(255,180,95,0.50), rgba(255,180,95,0.0) 60%),
@@ -529,4 +551,11 @@ html.np-lamp-on .np-lamp__glow,
 html[data-scheme="dark"] .np-lamp__glow {
   opacity: 1;
   filter: blur(1px);
+}
+
+/* Make sure any parent containers won't clip the glow */
+#dark-mode-toggle,
+.sidebar.left-sidebar,
+.sidebar.left-sidebar.sticky {
+  overflow: visible !important;
 }
