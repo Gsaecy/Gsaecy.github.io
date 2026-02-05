@@ -6,6 +6,10 @@ mainSections = ["posts"]
 # Output page's full content in RSS.
 rssFullContent = true
 
+# Extra assets
+customCSS = ["css/custom.css"]
+customJS  = ["js/newspaper.js"]
+
 # Accepted values: "default", "lastmod"
 SortBy = "default"
 
