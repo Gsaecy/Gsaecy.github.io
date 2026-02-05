@@ -1,56 +1,283 @@
-/* Unified post card styling for Hugo Theme Stack */
+/* Newspaper UI for hugo-theme-stack
+   Goal: like newspapers on a desk (subtle tablecloth bg, folded cards, paper texture).
+   Keep it light, readable, and not distracting.
+*/
 
 :root {
-  --card-radius: 16px;
-  --card-border: 1px solid rgba(0, 0, 0, 0.08);
-  --card-shadow: 0 6px 22px rgba(0, 0, 0, 0.08);
+  /* B方案：复古旧报纸（更暖、更旧、更有纤维纸纹，但仍保持浅色不刺眼） */
+  --np-tablecloth: #f3eee4;
+  --np-tablecloth-2: rgba(106, 86, 66, 0.07);
+
+  --np-ink: rgba(18, 14, 10, 0.92);
+
+  /* Old newspaper paper tone */
+  --np-paper: #f6f0e1;
+  --np-paper-warm: rgba(190, 150, 100, 0.10);
+  --np-paper-fiber: rgba(120, 90, 60, 0.06);
+
+  --np-border: rgba(18, 14, 10, 0.12);
+  --np-shadow: rgba(0, 0, 0, 0.14);
+  --np-shadow-soft: rgba(0, 0, 0, 0.08);
+
+  --np-radius: 14px;
+  --np-content-max: 980px;
 }
 
-/* Generic: most list items in Stack are articles inside .article-list */
-.article-list article,
-.article-list .article {
-  border-radius: var(--card-radius);
-  border: var(--card-border);
-  box-shadow: var(--card-shadow);
-  overflow: hidden;
-  transition: transform 120ms ease, box-shadow 120ms ease;
+/* 1) Desk/tablecloth background (vintage, but subtle) */
+body {
+  color: var(--np-ink);
+  background-color: var(--np-tablecloth);
+  background-image:
+    /* tablecloth weave dots */
+    radial-gradient(circle at 1px 1px, var(--np-tablecloth-2) 1px, transparent 0),
+    radial-gradient(circle at 7px 7px, rgba(106, 86, 66, 0.04) 1px, transparent 0),
+    /* very subtle diagonal fabric grain */
+    repeating-linear-gradient(
+      135deg,
+      rgba(106, 86, 66, 0.028) 0px,
+      rgba(106, 86, 66, 0.028) 1px,
+      rgba(255, 255, 255, 0) 9px,
+      rgba(255, 255, 255, 0) 18px
+    ),
+    /* lift brightness */
+    linear-gradient(0deg, rgba(255,255,255,0.34), rgba(255,255,255,0.34));
+  background-size: 12px 12px, 18px 18px, 22px 22px, 100% 100%;
+  background-attachment: fixed;
+
+  /* Newspaper-ish system serif first */
+  font-family: ui-serif, Georgia, "Times New Roman", Times,
+    "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC",
+    "SimSun", serif;
+  letter-spacing: 0.15px;
 }
 
-.article-list article:hover,
-.article-list .article:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+/* Keep UI (menus) clean: titles can stay a bit more modern */
+.site-name a,
+.menu a,
+.section-term,
+.article-title {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC",
+    "Noto Sans", sans-serif;
 }
 
-/* Keep cards compact: no enforced cover image in list cards */
-.article-list .article-image {
-  display: none;
+/* 2) Article list cards as “folded newspaper” */
+section.article-list--compact article > a {
+  display: block;
+  position: relative;
+  padding: 18px 18px;
+  border-radius: var(--np-radius);
+  background:
+    /* warm aged paper */
+    linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.25)),
+    linear-gradient(180deg, var(--np-paper-warm), rgba(255,255,255,0)),
+    /* fiber dots */
+    radial-gradient(circle at 2px 2px, var(--np-paper-fiber) 1px, transparent 0),
+    radial-gradient(circle at 10px 14px, rgba(120, 90, 60, 0.04) 1px, transparent 0),
+    /* subtle uneven inking */
+    linear-gradient(135deg, rgba(18,14,10,0.06) 0%, rgba(18,14,10,0.00) 52%, rgba(18,14,10,0.04) 100%),
+    var(--np-paper);
+  background-size: 100% 100%, 100% 100%, 12px 12px, 18px 18px, 100% 100%, 100% 100%;
+  border: 1px solid var(--np-border);
+  box-shadow:
+    0 22px 60px var(--np-shadow-soft),
+    0 6px 16px var(--np-shadow);
+  transform: rotate(-0.2deg);
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
 }
 
-/* Normalize title + excerpt spacing */
-.article-title,
-.article-list .article-title {
-  line-height: 1.25;
+section.article-list--compact article:nth-child(3n) > a { transform: rotate(0.25deg); }
+section.article-list--compact article:nth-child(3n+1) > a { transform: rotate(-0.35deg); }
+
+section.article-list--compact article > a:hover {
+  transform: translateY(-2px) rotate(0deg);
+  box-shadow:
+    0 22px 60px var(--np-shadow-soft),
+    0 6px 16px var(--np-shadow);
 }
 
-.article-list .article-content,
-.article-list .article-details {
-  padding: 14px 16px;
+/* Give list titles a more “front page” vibe */
+section.article-list--compact .article-title {
+  font-weight: 750;
+  letter-spacing: 0.25px;
 }
 
-/* Two-line compact meta */
-.article-list .article-details .article-time {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin-top: 6px;
-  opacity: 0.8;
-  font-size: 0.92em;
+/* Fold crease */
+section.article-list--compact article > a::after {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border-radius: calc(var(--np-radius) - 6px);
+  pointer-events: none;
+  background:
+    /* stronger fold crease for vintage newspaper */
+    linear-gradient(90deg,
+      rgba(18,14,10,0.00) 0%,
+      rgba(18,14,10,0.04) 46%,
+      rgba(18,14,10,0.12) 50%,
+      rgba(255,255,255,0.20) 53%,
+      rgba(18,14,10,0.03) 57%,
+      rgba(18,14,10,0.00) 100%);
+  opacity: 0.70;
+  mix-blend-mode: multiply;
 }
 
-/* Avoid overly wide cards on large screens */
+/* A small folded corner */
+section.article-list--compact article > a::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 22px;
+  height: 22px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.0) 50%, rgba(20,18,16,0.10) 52%, rgba(255,255,255,0.6) 100%);
+  border-top-right-radius: calc(var(--np-radius) - 6px);
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+  opacity: 0.55;
+}
+
+/* Click-to-open effect */
+section.article-list--compact article.np-opening > a {
+  transform: translateY(-1px) rotate(0deg) scale(1.02);
+  filter: saturate(1.02) contrast(1.02);
+}
+
+html.np-navigate section.article-list--compact article:not(.np-opening) > a {
+  opacity: 0.75;
+  transform: translateY(0) rotate(0deg) scale(0.995);
+}
+
+/* 3) Article page as “unfolded newspaper” */
+body.article-page .main-article {
+  background:
+    /* aged paper + slightly uneven tone */
+    linear-gradient(180deg, rgba(255,255,255,0.50), rgba(255,255,255,0.18)),
+    linear-gradient(180deg, var(--np-paper-warm), rgba(255,255,255,0)),
+    /* paper fibers */
+    radial-gradient(circle at 18px 18px, rgba(120, 90, 60, 0.055) 1px, transparent 0),
+    radial-gradient(circle at 6px 10px, rgba(120, 90, 60, 0.035) 1px, transparent 0),
+    /* faint vertical print banding */
+    repeating-linear-gradient(
+      90deg,
+      rgba(18,14,10,0.00) 0px,
+      rgba(18,14,10,0.00) 18px,
+      rgba(18,14,10,0.018) 20px,
+      rgba(18,14,10,0.00) 38px
+    ),
+    var(--np-paper);
+  background-size: 100% 100%, 100% 100%, 14px 14px, 22px 22px, 40px 40px, 100% 100%;
+  border: 1px solid var(--np-border);
+  border-radius: var(--np-radius);
+  box-shadow:
+    0 30px 90px var(--np-shadow-soft),
+    0 10px 22px var(--np-shadow);
+}
+
+/* Enter animation (unfold) */
+html.np-enter body.article-page .main-article {
+  transform: translateY(10px) scale(0.985);
+  opacity: 0.0;
+}
+html.np-enter-active body.article-page .main-article {
+  transition: transform 520ms ease, opacity 520ms ease;
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* 4) Keep WeChat-friendly article typography, but with newspaper feel */
+.article-content {
+  font-size: 1.03rem;
+  line-height: 1.86;
+  /* slightly more like printed ink */
+  filter: contrast(1.02);
+}
+
+.article-content p {
+  margin: 0.85em 0;
+}
+
+.article-content h1,
+.article-content h2,
+.article-content h3 {
+  letter-spacing: 0.2px;
+}
+
+/* Images: slightly less rounded for “printed” feeling */
+.article-content img {
+  border-radius: 10px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.10);
+}
+
+.article-content table,
+.article-content pre {
+  border-radius: 12px;
+}
+
+a {
+  text-underline-offset: 3px;
+}
+
+/* --- Magazine-newspaper polish (more designed, still vintage) --- */
+
+/* Big headline feel */
+body.article-page .article-title {
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  line-height: 1.12;
+}
+
+/* Section headers in content feel like newspaper blocks */
+.article-content h2 {
+  border-top: 1px solid rgba(18,14,10,0.18);
+  padding-top: 0.85rem;
+  margin-top: 1.8rem;
+}
+
+.article-content h3 {
+  font-weight: 700;
+}
+
+/* Drop cap: first paragraph */
+.article-content > p:first-of-type::first-letter {
+  float: left;
+  font-size: 3.2em;
+  line-height: 0.88;
+  padding-right: 0.18em;
+  padding-top: 0.06em;
+  font-weight: 800;
+  color: rgba(18,14,10,0.92);
+}
+
+/* Subtle “print” underline for links on hover */
+.article-content a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Promo slogan */
+.np-promo {
+  margin-top: 2.2rem;
+  padding-top: 1.4rem;
+}
+.np-promo__rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(20,18,16,0.25), transparent);
+  margin-bottom: 1rem;
+}
+.np-promo__text {
+  margin: 0;
+  font-size: 0.98rem;
+  opacity: 0.86;
+  text-align: center;
+}
+
+/* Wider content on desktop */
 @media (min-width: 1200px) {
-  .main-container {
-    max-width: 1180px;
+  .main-container .main.full-width {
+    max-width: var(--np-content-max);
   }
+}
+
+.site-description {
+  opacity: 0.9;
 }
