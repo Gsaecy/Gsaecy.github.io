@@ -246,6 +246,41 @@ html.np-navigate section.article-list--compact article:not(.np-opening) > a {
   transform: translateY(0) rotate(0deg) scale(0.995);
 }
 
+/* Article divider: replace centered short line with a "—AI智汇观察—" mini card */
+.article-content hr {
+  border: 0;
+  height: 1px;
+  margin: 26px auto;
+  position: relative;
+  background: linear-gradient(90deg, rgba(18,14,10,0.00), rgba(18,14,10,0.25), rgba(18,14,10,0.00));
+}
+.article-content hr::after {
+  content: "— AI智汇观察 —";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: 0.6px;
+  color: rgba(18,14,10,0.78);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.60), rgba(255,255,255,0.22)),
+    var(--np-paper);
+  border: 1px solid rgba(18,14,10,0.12);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+  white-space: nowrap;
+}
+html[data-scheme="dark"] .article-content hr {
+  background: linear-gradient(90deg, rgba(255,200,120,0.00), rgba(255,200,120,0.22), rgba(255,200,120,0.00));
+}
+html[data-scheme="dark"] .article-content hr::after {
+  color: rgba(245,240,225,0.86);
+  background: rgba(22, 18, 14, 0.82);
+  border-color: rgba(255, 200, 120, 0.14);
+}
+
 /* 3) Article page as “unfolded newspaper” */
 body.article-page .main-article {
   background:
