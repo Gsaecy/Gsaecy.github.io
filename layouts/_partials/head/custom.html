@@ -1,0 +1,8 @@
+{{/*
+  Inject custom CSS/JS without changing the publishing pipeline.
+  hugo-theme-stack provides this hook at layouts/_partials/head/custom.html
+*/}}
+
+{{ $v := now.Unix }}
+<link rel="stylesheet" href="{{ "css/custom.css" | relURL }}?v={{ $v }}">
+<script defer src="{{ "js/newspaper.js" | relURL }}?v={{ $v }}"></script>
