@@ -104,25 +104,42 @@ html[data-scheme="dark"] #main-menu {
   opacity: 0.9;
 }
 
-/* 2) Article list cards as “folded newspaper” (stacked on desk) */
-section.article-list--compact {
+/* 2) Article list cards as “folded newspaper” (stacked on desk)
+   Stack theme uses different layouts:
+   - Home:  section.article-list > article (link is inside h2)
+   - /posts: section.article-list--compact > article > a
+*/
+section.article-list--compact,
+section.article-list {
   position: relative;
 }
-section.article-list--compact article {
+
+section.article-list--compact article,
+section.article-list article {
   position: relative;
   margin-top: -10px;
 }
-section.article-list--compact article:first-child {
+section.article-list--compact article:first-child,
+section.article-list article:first-child {
   margin-top: 0;
 }
-section.article-list--compact article:nth-child(1) { z-index: 6; }
-section.article-list--compact article:nth-child(2) { z-index: 5; }
-section.article-list--compact article:nth-child(3) { z-index: 4; }
-section.article-list--compact article:nth-child(4) { z-index: 3; }
-section.article-list--compact article:nth-child(5) { z-index: 2; }
-section.article-list--compact article:nth-child(6) { z-index: 1; }
 
-section.article-list--compact article > a {
+section.article-list--compact article:nth-child(1),
+section.article-list article:nth-child(1) { z-index: 6; }
+section.article-list--compact article:nth-child(2),
+section.article-list article:nth-child(2) { z-index: 5; }
+section.article-list--compact article:nth-child(3),
+section.article-list article:nth-child(3) { z-index: 4; }
+section.article-list--compact article:nth-child(4),
+section.article-list article:nth-child(4) { z-index: 3; }
+section.article-list--compact article:nth-child(5),
+section.article-list article:nth-child(5) { z-index: 2; }
+section.article-list--compact article:nth-child(6),
+section.article-list article:nth-child(6) { z-index: 1; }
+
+/* Card container: apply paper style to both */
+section.article-list--compact article > a,
+section.article-list article {
   display: block;
   position: relative;
   padding: 18px 18px;
@@ -146,11 +163,15 @@ section.article-list--compact article > a {
   transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
 }
 
-section.article-list--compact article:nth-child(3n) > a { transform: translateX(3px) rotate(0.45deg); }
-section.article-list--compact article:nth-child(3n+1) > a { transform: translateX(-2px) rotate(-0.55deg); }
-section.article-list--compact article:nth-child(4n) > a { transform: translateX(5px) rotate(0.15deg); }
+section.article-list--compact article:nth-child(3n) > a,
+section.article-list article:nth-child(3n) { transform: translateX(3px) rotate(0.45deg); }
+section.article-list--compact article:nth-child(3n+1) > a,
+section.article-list article:nth-child(3n+1) { transform: translateX(-2px) rotate(-0.55deg); }
+section.article-list--compact article:nth-child(4n) > a,
+section.article-list article:nth-child(4n) { transform: translateX(5px) rotate(0.15deg); }
 
-section.article-list--compact article > a:hover {
+section.article-list--compact article > a:hover,
+section.article-list article:hover {
   transform: translateY(-2px) rotate(0deg);
   box-shadow:
     0 22px 60px var(--np-shadow-soft),
@@ -164,7 +185,8 @@ section.article-list--compact .article-title {
 }
 
 /* Fold crease */
-section.article-list--compact article > a::after {
+section.article-list--compact article > a::after,
+section.article-list article::after {
   content: "";
   position: absolute;
   inset: 10px;
@@ -184,7 +206,8 @@ section.article-list--compact article > a::after {
 }
 
 /* A small folded corner */
-section.article-list--compact article > a::before {
+section.article-list--compact article > a::before,
+section.article-list article::before {
   content: "";
   position: absolute;
   top: 10px;
@@ -198,7 +221,8 @@ section.article-list--compact article > a::before {
 }
 
 /* Dark mode cards: still paper-ish but darker */
-html[data-scheme="dark"] section.article-list--compact article > a {
+html[data-scheme="dark"] section.article-list--compact article > a,
+html[data-scheme="dark"] section.article-list article {
   color: rgba(245, 240, 225, 0.92);
   border-color: rgba(255, 200, 120, 0.12);
   background:
@@ -206,7 +230,8 @@ html[data-scheme="dark"] section.article-list--compact article > a {
     radial-gradient(circle at 2px 2px, rgba(255, 200, 120, 0.04) 1px, transparent 0),
     rgba(22, 18, 14, 0.92);
 }
-html[data-scheme="dark"] section.article-list--compact article > a::after {
+html[data-scheme="dark"] section.article-list--compact article > a::after,
+html[data-scheme="dark"] section.article-list article::after {
   opacity: 0.35;
 }
 

@@ -139,7 +139,7 @@
 
   function wireCardOpenTransition() {
     const cards = document.querySelectorAll(
-      'section.article-list--compact article > a, section.article-list--tile article > a'
+      'section.article-list--compact article > a, section.article-list--tile article > a, section.article-list article .article-title a'
     );
     if (!cards.length) return;
 
