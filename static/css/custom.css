@@ -286,28 +286,15 @@ section.article-list article {
   padding: 18px 18px;
   border-radius: var(--np-radius);
   background:
-    /* clean warm paper */
-    linear-gradient(180deg, rgba(255,255,255,0.62), rgba(255,255,255,0.22)),
-    linear-gradient(180deg, rgba(248, 242, 228, 0.78), rgba(255,255,255,0.0)),
-    /* subtle paper grain (less "dirty") */
-    repeating-linear-gradient(
-      0deg,
-      rgba(120, 90, 60, 0.020) 0px,
-      rgba(120, 90, 60, 0.020) 1px,
-      rgba(255, 255, 255, 0.0) 7px,
-      rgba(255, 255, 255, 0.0) 14px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(120, 90, 60, 0.016) 0px,
-      rgba(120, 90, 60, 0.016) 1px,
-      rgba(255, 255, 255, 0.0) 9px,
-      rgba(255, 255, 255, 0.0) 18px
-    ),
-    /* a tiny bit of fiber speckle */
-    radial-gradient(circle at 2px 3px, rgba(120, 90, 60, 0.020) 1px, transparent 0),
+    /* keep readability */
+    linear-gradient(180deg, rgba(255,255,255,0.66), rgba(255,255,255,0.24)),
+    /* user-provided newspaper texture */
+    url('/img/paper/newspaper-texture-sm.png'),
     var(--np-paper);
-  background-size: 100% 100%, 100% 100%, 22px 22px, 26px 26px, 16px 16px, 100% 100%;
+  background-size: 100% 100%, cover, 100% 100%;
+  background-position: center, center, center;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-blend-mode: normal, multiply, normal;
   border: 1px solid var(--np-border);
   box-shadow:
     0 22px 60px var(--np-shadow-soft),
@@ -379,10 +366,13 @@ html[data-scheme="dark"] section.article-list article {
   color: rgba(245, 240, 225, 0.92);
   border-color: rgba(255, 200, 120, 0.12);
   background:
-    linear-gradient(180deg, rgba(255, 220, 160, 0.08), rgba(0,0,0,0.12)),
-    repeating-linear-gradient(0deg, rgba(255, 200, 120, 0.020) 0px, rgba(255, 200, 120, 0.020) 1px, rgba(0,0,0,0.0) 9px, rgba(0,0,0,0.0) 18px),
-    radial-gradient(circle at 2px 3px, rgba(255, 200, 120, 0.020) 1px, transparent 0),
+    linear-gradient(180deg, rgba(255, 220, 160, 0.08), rgba(0,0,0,0.16)),
+    url('/img/paper/newspaper-texture-sm.png'),
     rgba(22, 18, 14, 0.92);
+  background-size: 100% 100%, cover, 100% 100%;
+  background-position: center, center, center;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-blend-mode: normal, soft-light, normal;
 }
 html[data-scheme="dark"] section.article-list--compact article > a::after,
 html[data-scheme="dark"] section.article-list article::after {
