@@ -23,6 +23,7 @@ params:
   mainSections: ["posts"]
   rssFullContent: true
   customCSS: ["css/custom.css"]
+  customJS: ["js/newspaper.js"]
   author: "AI智汇观察"
   
   sidebar:
