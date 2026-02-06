@@ -162,24 +162,45 @@ html[data-scheme="dark"] body {
 }
 
 @media (max-width: 768px) {
+  /* Mobile: avoid fixed left sidebar/menu stealing screen space.
+     Keep the same features, but flow naturally so content can use full width. */
   .sidebar.left-sidebar > header {
-    left: 14px;
-    top: 12px;
-    width: 220px;
-    transform: scale(0.92);
-    transform-origin: left top;
+    position: static;
+    left: auto;
+    top: auto;
+    width: auto;
+    transform: none;
   }
 
   #main-menu {
-    left: 14px;
-    top: 190px;
-    width: 220px;
-    transform: scale(0.95);
-    transform-origin: left top;
+    position: static;
+    left: auto;
+    top: auto;
+    width: auto;
+    transform: none;
   }
 
   .sidebar.left-sidebar {
-    padding-bottom: 260px;
+    padding-bottom: 0;
+  }
+
+  /* Article list: reduce “desk” stacking so cards don't get clipped on narrow screens */
+  section.article-list--compact article,
+  section.article-list article {
+    margin-top: 12px;
+  }
+
+  section.article-list--compact article > a,
+  section.article-list article {
+    padding: 14px 14px;
+    transform: none !important;
+  }
+
+  section.article-list--compact article > a::before,
+  section.article-list article::before,
+  section.article-list--compact article > a::after,
+  section.article-list article::after {
+    display: none;
   }
 }
 html[data-scheme="dark"] #main-menu {
@@ -231,13 +252,10 @@ html[data-scheme="dark"] .sidebar.right-sidebar a[href^="/tags/"] {
 
 @media (max-width: 768px) {
   .np-lamp {
-    left: 14px;
-    bottom: 14px;
-    transform: scale(0.78);
+    left: 12px;
+    bottom: 12px;
+    transform: scale(0.74);
     transform-origin: left bottom;
-  }
-  .sidebar.left-sidebar {
-    padding-bottom: 260px;
   }
 }
 #main-menu li.current a span::before {
