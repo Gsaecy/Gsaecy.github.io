@@ -1,5 +1,5 @@
 # RSS sources by industry (aim: top media/communities with stable feeds)
-# Note: some sites may be paywalled or block bots; the collector will skip failures.
+# Collector will skip sources that fail (paywall/bot-block/etc).
 
 global:
   user_agent: "AIInsightBot/1.0 (+https://gsaecy.github.io)"
@@ -22,32 +22,40 @@ industries:
       rss: https://hnrss.org/frontpage
     - name: GitHub Blog
       rss: https://github.blog/feed/
-    - name: OpenAI Blog
-      rss: https://openai.com/blog/rss.xml
-    - name: Google AI Blog
-      rss: https://blog.research.google/feeds/posts/default?alt=rss
 
   finance:
     - name: CNBC Top News
       rss: https://www.cnbc.com/id/100003114/device/rss/rss.html
-    - name: CNBC Markets
-      rss: https://www.cnbc.com/id/15839069/device/rss/rss.html
     - name: MarketWatch Top Stories
       rss: https://feeds.marketwatch.com/marketwatch/topstories/
-    - name: Seeking Alpha Market News
-      rss: https://seekingalpha.com/market_currents.xml
-    - name: The Economist Finance & economics
+    - name: The Economist - Finance & economics
       rss: https://www.economist.com/finance-and-economics/rss.xml
     - name: IMF Blog
       rss: https://www.imf.org/en/Blogs/rss
-    - name: World Bank Blogs
-      rss: https://blogs.worldbank.org/rss.xml
     - name: CoinDesk
       rss: https://www.coindesk.com/arc/outboundfeeds/rss/
-    - name: Finextra
-      rss: https://www.finextra.com/rss/headlines.aspx
-    - name: Bank for International Settlements
-      rss: https://www.bis.org/rssfeed/index.htm
+
+  healthcare:
+    - name: STAT News
+      rss: https://www.statnews.com/feed/
+    - name: Medical Xpress
+      rss: https://medicalxpress.com/rss-feed/
+    - name: WHO - Newsroom
+      rss: https://www.who.int/rss-feeds/news-english.xml
+    - name: Nature - Medical research
+      rss: https://www.nature.com/subjects/medical-research.rss
+    - name: Google News - Healthcare
+      rss: https://news.google.com/rss/search?q=healthcare%20technology&hl=en-US&gl=US&ceid=US:en
+
+  education:
+    - name: EdSurge
+      rss: https://www.edsurge.com/rss
+    - name: Inside Higher Ed
+      rss: https://www.insidehighered.com/rss.xml
+    - name: The Chronicle of Higher Education
+      rss: https://www.chronicle.com/section/news/rss
+    - name: Google News - Education
+      rss: https://news.google.com/rss/search?q=education%20technology&hl=en-US&gl=US&ceid=US:en
 
   automotive:
     - name: Electrek
@@ -58,15 +66,63 @@ industries:
       rss: https://cleantechnica.com/category/transport/feed/
     - name: Car and Driver
       rss: https://www.caranddriver.com/rss/all.xml/
-    - name: Road & Track
-      rss: https://www.roadandtrack.com/rss/all.xml/
     - name: Autocar
       rss: https://www.autocar.co.uk/rss
-    - name: SAE International News
-      rss: https://www.sae.org/rss/news
-    - name: IEA - Transport
-      rss: https://www.iea.org/feeds/news.xml
-    - name: EV Volumes (news)
-      rss: https://www.ev-volumes.com/feed/
-    - name: Tesla Newswire (community)
-      rss: https://www.teslarati.com/feed/
+
+  retail:
+    - name: Retail Dive
+      rss: https://www.retaildive.com/feeds/news/
+    - name: Chain Store Age
+      rss: https://chainstoreage.com/rss.xml
+    - name: Google News - Retail
+      rss: https://news.google.com/rss/search?q=retail%20digital%20transformation&hl=en-US&gl=US&ceid=US:en
+
+  manufacturing:
+    - name: IndustryWeek
+      rss: https://www.industryweek.com/rss.xml
+    - name: Manufacturing.net
+      rss: https://www.manufacturing.net/rss
+    - name: World Economic Forum - Manufacturing
+      rss: https://www.weforum.org/agenda/archive/manufacturing-and-production/feed/
+    - name: Google News - Smart Manufacturing
+      rss: https://news.google.com/rss/search?q=smart%20manufacturing%20industry%204.0&hl=en-US&gl=US&ceid=US:en
+
+  # 外贸行业：重点关注日本与中国外贸交易信息
+  foreign_trade:
+    - name: JETRO - Japan External Trade Organization
+      rss: https://www.jetro.go.jp/en/rss/news.xml
+    - name: WTO - News
+      rss: https://www.wto.org/library/rss/news.xml
+    - name: UNCTAD - News
+      rss: https://unctad.org/rss.xml
+    - name: Google News - Japan China trade
+      rss: https://news.google.com/rss/search?q=Japan%20China%20trade%20exports%20imports&hl=en-US&gl=US&ceid=US:en
+    - name: Google News - Japan import export
+      rss: https://news.google.com/rss/search?q=Japan%20import%20export%20trade&hl=en-US&gl=US&ceid=US:en
+
+  # 科研仪器
+  scientific_instruments:
+    - name: ScienceDaily - Materials
+      rss: https://www.sciencedaily.com/rss/matter_energy/materials_science.xml
+    - name: Nature - Scientific instruments
+      rss: https://www.nature.com/subjects/scientific-instruments.rss
+    - name: Google News - scientific instruments
+      rss: https://news.google.com/rss/search?q=scientific%20instruments%20laboratory%20equipment&hl=en-US&gl=US&ceid=US:en
+
+  # 试剂
+  reagents:
+    - name: Fierce Biotech
+      rss: https://www.fiercebiotech.com/rss/xml
+    - name: Genetic Engineering & Biotechnology News (GEN)
+      rss: https://www.genengnews.com/feed/
+    - name: Google News - laboratory reagents
+      rss: https://news.google.com/rss/search?q=laboratory%20reagents%20biotech%20supply%20chain&hl=en-US&gl=US&ceid=US:en
+
+  # 科研耗材
+  lab_consumables:
+    - name: Lab Manager
+      rss: https://www.labmanager.com/rss
+    - name: The Scientist
+      rss: https://www.the-scientist.com/feed
+    - name: Google News - lab consumables
+      rss: https://news.google.com/rss/search?q=lab%20consumables%20pipette%20tips%20gloves%20shortage&hl=en-US&gl=US&ceid=US:en
