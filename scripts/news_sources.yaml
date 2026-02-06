@@ -95,10 +95,16 @@ industries:
       rss: https://www.wto.org/library/rss/news.xml
     - name: UNCTAD - News
       rss: https://unctad.org/rss.xml
-    - name: Google News - Japan China trade
+    - name: FreightWaves
+      rss: https://www.freightwaves.com/feed
+    - name: Google News (ZH) - 中日 外贸
+      rss: https://news.google.com/rss/search?q=%E4%B8%AD%E6%97%A5%20%E5%A4%96%E8%B4%B8%20%E8%BF%9B%E5%87%BA%E5%8F%A3&hl=zh-CN&gl=CN&ceid=CN:zh-Hans
+    - name: Google News (ZH) - 日本 出口 进口
+      rss: https://news.google.com/rss/search?q=%E6%97%A5%E6%9C%AC%20%E5%87%BA%E5%8F%A3%20%E8%BF%9B%E5%8F%A3%20%E8%B4%B8%E6%98%93&hl=zh-CN&gl=CN&ceid=CN:zh-Hans
+    - name: Google News (EN) - Japan China trade
       rss: https://news.google.com/rss/search?q=Japan%20China%20trade%20exports%20imports&hl=en-US&gl=US&ceid=US:en
-    - name: Google News - Japan import export
-      rss: https://news.google.com/rss/search?q=Japan%20import%20export%20trade&hl=en-US&gl=US&ceid=US:en
+    - name: Google News (EN) - global trade logistics
+      rss: https://news.google.com/rss/search?q=global%20trade%20logistics%20shipping%20freight&hl=en-US&gl=US&ceid=US:en
 
   # 科研仪器
   scientific_instruments:

@@ -121,10 +121,10 @@ def call_deepseek(prompt: str) -> str:
             r.raise_for_status()
             data = r.json()
             return data["choices"][0]["message"]["content"].strip()
-        except (requests.exceptions.Timeout, requests.exceptions.ConnectionError) as e:
+        except (requests.exceptions.Timeout, requests.exceptions.ConnectionError, requests.exceptions.ChunkedEncodingError) as e:
             last_err = e
             sleep_s = 5 * attempt
-            print(f"⚠️ deepseek request timeout (attempt {attempt}/3), retry in {sleep_s}s: {e}")
+            print(f"⚠️ deepseek request failed (attempt {attempt}/3), retry in {sleep_s}s: {e}")
             time.sleep(sleep_s)
 
     raise RuntimeError(f"DeepSeek request failed after retries: {last_err}")
@@ -140,6 +140,9 @@ def main() -> None:
     args = ap.parse_args()
 
     payload = json.loads(Path(args.inp).read_text(encoding="utf-8"))
+
+    if not payload.get("items"):
+        raise SystemExit(f"No news items collected for industry={args.industry} (input={args.inp})")
 
     # cover: pick first available
     cover_url = None
