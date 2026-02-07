@@ -78,6 +78,7 @@ def build_prompt(payload: Dict[str, Any], title: str, industry: str) -> str:
 
     return (
         "你是一个严谨的行业研究编辑。请基于【提供的素材】写一篇高质量行业文章，并适配微信公众号排版。\n\n"
+        "注意：封面图由系统另行生成并插入，请不要在正文中输出任何封面图/图片占位符/‘图1’之类说明。\n\n"
         "硬性规则（非常重要）：\n"
         "1) 只允许使用素材里出现的事实/数字/结论；不要编造任何数据、公司动作、政策细节。\n"
         "2) 文中出现的数据/结论必须在段尾用[编号]标注引用来源（例如：[1][3]）。\n"
@@ -137,6 +138,12 @@ def main() -> None:
     ap.add_argument("--title", required=True)
     ap.add_argument("--industry", required=True)
     ap.add_argument("--out", required=True)
+    ap.add_argument(
+        "--cover",
+        required=False,
+        default="",
+        help="Optional cover image URL path (e.g. /images/posts/<slug>/cover.jpg). Overrides downloaded cover.",
+    )
     args = ap.parse_args()
 
     payload = json.loads(Path(args.inp).read_text(encoding="utf-8"))
@@ -144,16 +151,18 @@ def main() -> None:
     if not payload.get("items"):
         raise SystemExit(f"No news items collected for industry={args.industry} (input={args.inp})")
 
-    # cover: pick first available
-    cover_url = None
-    for it in payload.get("items", [])[:10]:
-        if it.get("cover_image_url"):
-            cover_url = it["cover_image_url"]
-            break
+    # cover
+    cover_rel = (args.cover or "").strip() or None
 
-    cover_rel = None
-    if cover_url:
-        cover_rel = download_cover(cover_url, Path("static/images/posts") / args.slug)
+    # If not provided, pick first available from sources and download.
+    if not cover_rel:
+        cover_url = None
+        for it in payload.get("items", [])[:10]:
+            if it.get("cover_image_url"):
+                cover_url = it["cover_image_url"]
+                break
+        if cover_url:
+            cover_rel = download_cover(cover_url, Path("static/images/posts") / args.slug)
 
     prompt = build_prompt(payload, args.title, args.industry)
     article_md = call_deepseek(prompt)
@@ -184,7 +193,13 @@ def main() -> None:
 
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text("\n".join(fm_lines) + article_md.strip() + "\n", encoding="utf-8")
+
+    # Prepend cover to body to ensure consistent rendering
+    body = article_md.strip()
+    if cover_rel:
+        body = f"![封面图]({cover_rel})\n\n" + body
+
+    out_path.write_text("\n".join(fm_lines) + body + "\n", encoding="utf-8")
     print(f"✅ wrote post -> {out_path}")
 
 

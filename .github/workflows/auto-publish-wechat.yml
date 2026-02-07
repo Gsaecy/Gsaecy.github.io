@@ -49,6 +49,8 @@ concurrency:
 env:
   HUGO_VERSION: '0.155.1'
   BLOG_URL: 'https://gsaecy.github.io'
+  VOLC_REGION: 'cn-north-1'
+  VOLC_SERVICE: 'cv'
 
 jobs:
   generate-and-publish:
@@ -180,6 +182,8 @@ jobs:
           INDUSTRY: ${{ steps.topic.outputs.industry }}
           FILENAME: ${{ steps.topic.outputs.filename }}
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          VOLC_ACCESS_KEY_ID: ${{ secrets.VOLC_ACCESS_KEY_ID }}
+          VOLC_SECRET_ACCESS_KEY: ${{ secrets.VOLC_SECRET_ACCESS_KEY }}
         run: |
           echo "🗞️ 采集行业头部媒体RSS并生成文章..."
 
@@ -190,6 +194,13 @@ jobs:
           mkdir -p content/posts data/raw
 
           python3 scripts/collect_news.py --industry "${INDUSTRY}" --hours 24 --limit 25 --out "${NEWS_JSON}"
+
+          # 用即梦文生图生成封面（失败不阻断发布）
+          COVER_OUT_DIR="static/images/posts/${FILENAME}"
+          COVER_OUT_FILE="${COVER_OUT_DIR}/cover.jpg"
+          COVER_REL="/images/posts/${FILENAME}/cover.jpg"
+          mkdir -p "${COVER_OUT_DIR}" || true
+          python3 scripts/jimeng_generate_cover.py --slug "${FILENAME}" --title "${TITLE}" --industry "${INDUSTRY}" --out "${COVER_OUT_FILE}" || true
 
           # 标题：必须包含行业，避免读者不知道默认行业
           CN_DATE=$(TZ=Asia/Shanghai date +%Y-%m-%d)
@@ -210,7 +221,7 @@ jobs:
 
           TITLE="【${IND_CN}】${TOPIC}（${CN_DATE}）"
 
-          python3 scripts/generate_news_post.py --in "${NEWS_JSON}" --slug "${FILENAME}" --industry "${INDUSTRY}" --title "${TITLE}" --out "${ORIGINAL_FILE}"
+          python3 scripts/generate_news_post.py --in "${NEWS_JSON}" --slug "${FILENAME}" --industry "${INDUSTRY}" --title "${TITLE}" --out "${ORIGINAL_FILE}" --cover "${COVER_REL}"
 
           # 复制一份用于公众号格式转换
           cp "${ORIGINAL_FILE}" "${WECHAT_FILE}"
