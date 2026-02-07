@@ -64,11 +64,14 @@ def main() -> None:
         title, slug, image = meta.get("title"), meta.get("slug"), meta.get("image")
         if not title or not slug:
             continue
-        target = f"/images/posts/{slug}/cover.jpg"
-        if image != target:
+        # Allow cache-busting filenames like cover-v2.jpg
+        if not image or not image.startswith(f"/images/posts/{slug}/"):
+            continue
+        fname = image.split("/")[-1]
+        if not fname.startswith("cover") or not fname.endswith(".jpg"):
             continue
 
-        out_file = Path("static/images/posts") / slug / "cover.jpg"
+        out_file = Path("static/images/posts") / slug / fname
         if out_file.exists():
             print(f"cover exists: {out_file}")
             continue
