@@ -1,6 +1,6 @@
 name: Feishu Alarm Test
 
-on:
+"on":
   schedule:
     - cron: '*/5 * * * *'
 
