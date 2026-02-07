@@ -1,0 +1,67 @@
+name: Feishu Alarm Test
+
+on:
+  workflow_dispatch:
+    inputs:
+      note:
+        description: '测试备注'
+        required: false
+        default: ''
+
+jobs:
+  alarm-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Intentional failure
+        id: fail
+        run: |
+          echo "This step fails intentionally"
+          exit 1
+
+      - name: Notify Feishu (app bot)
+        if: always()
+        env:
+          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
+          FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
+          FEISHU_ALERT_CHAT_ID: ${{ secrets.FEISHU_ALERT_CHAT_ID }}
+          NOTE: ${{ inputs.note }}
+        run: |
+          if [ "${{ steps.fail.outcome }}" != "failure" ]; then
+            echo "Not a failure; skip"
+            exit 0
+          fi
+
+          if [ -z "$FEISHU_APP_ID" ] || [ -z "$FEISHU_APP_SECRET" ] || [ -z "$FEISHU_ALERT_CHAT_ID" ]; then
+            echo "Missing FEISHU_APP_ID/FEISHU_APP_SECRET/FEISHU_ALERT_CHAT_ID; skip"
+            exit 0
+          fi
+
+          TS_CN="$(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M:%S')"
+          RUN_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          TEXT="【告警联通测试】${TS_CN}\n${RUN_URL}\n${NOTE}"
+
+          TOKEN_JSON=$(curl -sS -X POST "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal" \
+            -H 'Content-Type: application/json' \
+            -d "{\"app_id\":\"${FEISHU_APP_ID}\",\"app_secret\":\"${FEISHU_APP_SECRET}\"}")
+          TENANT_TOKEN=$(python3 - <<'PY'
+import json,sys
+try:
+  j=json.loads(sys.stdin.read())
+  print(j.get('tenant_access_token',''))
+except Exception:
+  print('')
+PY
+          <<<"$TOKEN_JSON")
+
+          if [ -z "$TENANT_TOKEN" ]; then
+            echo "Failed to get tenant token: $TOKEN_JSON"
+            exit 0
+          fi
+
+          MSG="{\"receive_id\":\"${FEISHU_ALERT_CHAT_ID}\",\"msg_type\":\"text\",\"content\":{\"text\":\"${TEXT}\"}}"
+
+          curl -sS -X POST "https://open.feishu.cn/open-apis/im/v1/messages?receive_id_type=chat_id" \
+            -H 'Content-Type: application/json' \
+            -H "Authorization: Bearer ${TENANT_TOKEN}" \
+            -d "$MSG" \
+            || true
