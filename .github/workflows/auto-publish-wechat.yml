@@ -200,7 +200,11 @@ jobs:
           COVER_OUT_FILE="${COVER_OUT_DIR}/cover.jpg"
           COVER_REL="/images/posts/${FILENAME}/cover.jpg"
           mkdir -p "${COVER_OUT_DIR}" || true
-          python3 scripts/jimeng_generate_cover.py --slug "${FILENAME}" --title "${TITLE}" --industry "${INDUSTRY}" --out "${COVER_OUT_FILE}" || true
+          if python3 scripts/jimeng_generate_cover.py --slug "${FILENAME}" --title "${TITLE}" --industry "${INDUSTRY}" --out "${COVER_OUT_FILE}"; then
+            python3 scripts/jimeng_usage.py --file data/usage/jimeng_usage.json --mark success || true
+          else
+            python3 scripts/jimeng_usage.py --file data/usage/jimeng_usage.json --mark fail || true
+          fi
 
           # 标题：必须包含行业，避免读者不知道默认行业
           CN_DATE=$(TZ=Asia/Shanghai date +%Y-%m-%d)
@@ -430,9 +434,33 @@ jobs:
       
       - name: Send success notification
         if: success() && steps.topic.outputs.skip != 'true'
+        env:
+          FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
         run: |
           echo "✅ 文章发布成功！"
           echo "主题: ${{ steps.topic.outputs.topic }}"
           echo "时间: $(date)"
           echo "博客地址: ${BLOG_URL}"
           echo "文章链接: ${BLOG_URL}/posts/${{ steps.topic.outputs.filename }}/"
+
+          # Jimeng usage summary (self-tracked)
+          if [ -f data/usage/jimeng_usage.json ]; then
+            USAGE=$(cat data/usage/jimeng_usage.json | python3 -c "import sys,json; j=json.load(sys.stdin); t=j.get('total',{}); print(f\"Jimeng本月 用量：成功{t.get('success',0)}，失败{t.get('fail',0)}\")")
+          else
+            USAGE="Jimeng本月 用量：暂无统计"
+          fi
+          echo "$USAGE"
+
+          # Optional: send usage summary to Flow (low-noise: only at CN 18:xx publish)
+          if [ -n "$FEISHU_WEBHOOK_URL" ]; then
+            CN_HOUR=$(TZ=Asia/Shanghai date +%H)
+            if [ "$CN_HOUR" = "18" ]; then
+              RUN_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+              TS_CN="$(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M:%S')"
+              TEXT="【即梦额度监控(自统计)】${TS_CN}\\n${USAGE}\\n最新文章: ${BLOG_URL}/posts/${{ steps.topic.outputs.filename }}/\\nRun: ${RUN_URL}"
+              curl -sS -X POST "$FEISHU_WEBHOOK_URL" \
+                -H 'Content-Type: application/json' \
+                -d "{\"event\":\"jimeng_usage\",\"text\":\"${TEXT}\"}" \
+                || true
+            fi
+          fi
