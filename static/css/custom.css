@@ -53,12 +53,9 @@ body {
 
 /* Dark mode: desk becomes dark, paper becomes dim; fix "only cards change" issue */
 html[data-scheme="dark"] body {
+  /* Dark mode should prioritize readability over texture */
   background-color: #0f0e0c;
-  background-image:
-    radial-gradient(circle at 1px 1px, rgba(255, 180, 90, 0.03) 1px, transparent 0),
-    repeating-linear-gradient(135deg, rgba(255, 180, 90, 0.015) 0px, rgba(255, 180, 90, 0.015) 1px, rgba(0,0,0,0) 10px, rgba(0,0,0,0) 20px),
-    linear-gradient(0deg, rgba(0,0,0,0.35), rgba(0,0,0,0.35));
-  background-size: 14px 14px, 22px 22px, 100% 100%;
+  background-image: none;
 }
 
 /* Keep UI (menus) clean: titles can stay a bit more modern */
@@ -479,18 +476,11 @@ body.article-page .main-article {
 
 /* Dark mode: make article paper dark so white text is readable */
 html[data-scheme="dark"] body.article-page .main-article {
+  /* Reduce texture in dark mode (too busy + hurts legibility) */
   background:
-    linear-gradient(180deg, rgba(255, 220, 160, 0.06), rgba(0,0,0,0.22)),
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 220, 160, 0.00) 0px,
-      rgba(255, 220, 160, 0.00) 18px,
-      rgba(255, 220, 160, 0.03) 20px,
-      rgba(255, 220, 160, 0.00) 38px
-    ),
-    radial-gradient(circle at 18px 18px, rgba(255, 220, 160, 0.03) 1px, transparent 0),
-    rgba(18, 15, 12, 0.92);
-  border-color: rgba(255, 200, 120, 0.12);
+    linear-gradient(180deg, rgba(255, 220, 160, 0.04), rgba(0,0,0,0.28)),
+    rgba(18, 15, 12, 0.94);
+  border-color: rgba(255, 200, 120, 0.10);
 }
 
 html[data-scheme="dark"] .article-content,
@@ -520,10 +510,18 @@ html.np-enter-active body.article-page .main-article {
 
 /* 4) Keep WeChat-friendly article typography, but with newspaper feel */
 .article-content {
-  font-size: 1.03rem;
-  line-height: 1.86;
+  /* Larger type for readability, especially in dark mode */
+  font-size: 1.15rem;
+  line-height: 1.92;
   /* slightly more like printed ink */
   filter: contrast(1.02);
+}
+
+@media (max-width: 768px) {
+  .article-content {
+    font-size: 1.06rem;
+    line-height: 1.88;
+  }
 }
 
 .article-content p {
