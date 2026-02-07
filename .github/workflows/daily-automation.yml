@@ -1,6 +1,6 @@
 name: Daily AI Blog Automation
 
-on:
+"on":
   # 已切换到 RSS 聚合发布模式（auto-publish-wechat.yml）。
   # 此工作流保留仅供手动触发/回归测试。
   workflow_dispatch:
