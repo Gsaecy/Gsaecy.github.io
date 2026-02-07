@@ -294,10 +294,21 @@ jobs:
 
           echo "发送飞书失败提醒..."
           RUN_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          TS="$(date '+%Y-%m-%d %H:%M:%S')"
-          curl -sS -X POST "$FEISHU_WEBHOOK_URL" \
+          TS_CN="$(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M:%S')"
+          TEXT="【博客自动发布失败】${TS_CN}\n${RUN_URL}\n请查看失败步骤并重试。"
+
+          # 兼容两类 webhook：
+          # 1) 飞书自定义机器人（open.feishu.cn/bot/v2/hook）: 需要 msg_type/content
+          # 2) 飞书 Flow 触发器 webhook（www.feishu.cn/flow/api/trigger-webhook/...）: 通常接收自定义 JSON
+          # 先按机器人格式发送；若失败，再发送一份通用 payload。
+
+          curl -sS --fail -X POST "$FEISHU_WEBHOOK_URL" \
             -H 'Content-Type: application/json' \
-            -d "{\"msg_type\":\"text\",\"content\":{\"text\":\"【博客自动发布失败】${TS}\\n${RUN_URL}\\n请查看失败步骤并重试。\"}}" || true
+            -d "{\"msg_type\":\"text\",\"content\":{\"text\":\"${TEXT}\"}}" \
+            || curl -sS -X POST "$FEISHU_WEBHOOK_URL" \
+              -H 'Content-Type: application/json' \
+              -d "{\"event\":\"auto_publish_failed\",\"text\":\"${TEXT}\",\"run_url\":\"${RUN_URL}\",\"time_cn\":\"${TS_CN}\"}" \
+              || true
       
       - name: Format for WeChat
         if: steps.topic.outputs.skip != 'true'
