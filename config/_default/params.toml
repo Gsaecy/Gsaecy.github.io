@@ -20,8 +20,9 @@ SortBy = "default"
   customText = "由AI驱动的智能分析平台 | 数据仅供参考"
 
 [dateFormat]
-  published   = ":date_full"
-  lastUpdated = ":date_full"
+  # Use standard YYYY-MM-DD (avoid verbose English dates like "Sunday, February 8, 2026")
+  published   = "2006-01-02"
+  lastUpdated = "2006-01-02"
 
 [sidebar]
   # emoji = "🤖"  # disabled

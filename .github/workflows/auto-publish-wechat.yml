@@ -193,6 +193,14 @@ jobs:
 
           mkdir -p content/posts data/raw
 
+          # 如果是重试/重复触发，且同名文章已存在：不要再生成一遍（避免出现多篇“同内容不同配图”）
+          if [ -f "${ORIGINAL_FILE}" ]; then
+            echo "🟨 文章已存在，跳过重新生成：${ORIGINAL_FILE}"
+            echo "original_file=${ORIGINAL_FILE}" >> $GITHUB_OUTPUT
+            echo "wechat_file=${WECHAT_FILE}" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
           # 采集 RSS
           python3 scripts/collect_news.py --industry "${INDUSTRY}" --hours 24 --limit 25 --out "${NEWS_JSON}"
 
@@ -240,8 +248,7 @@ jobs:
             echo "fallback RSS collected count=${COUNT} (industry=${INDUSTRY})"
           fi
 
-          # 标题：必须包含行业，避免读者不知道默认行业
-          CN_DATE=$(TZ=Asia/Shanghai date +%Y-%m-%d)
+          # 标题：包含行业 + 更贴合内容（不在标题里写日期，日期已在文章元信息里体现）
           case $INDUSTRY in
             technology) IND_CN="科技";;
             finance) IND_CN="金融";;
@@ -257,7 +264,7 @@ jobs:
             *) IND_CN="$INDUSTRY";;
           esac
 
-          TITLE="【${IND_CN}】${TOPIC}（${CN_DATE}）"
+          TITLE="【${IND_CN}】${TOPIC}"
 
           # 用即梦文生图生成封面（失败不阻断发布）
           COVER_OUT_DIR="static/images/posts/${FILENAME}"

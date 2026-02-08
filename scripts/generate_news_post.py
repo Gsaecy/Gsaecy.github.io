@@ -170,9 +170,19 @@ def main() -> None:
     prompt = build_prompt(payload, args.title, args.industry)
     article_md = call_deepseek(prompt)
 
+    # If the model produced a strong H1 title, use it as the post title.
+    # This avoids stiff/generic titles and keeps the blog title aligned with the article's actual thesis.
+    body_md = article_md.strip()
+    h1 = None
+    m = re.search(r"(?m)^#\s+(.+?)\s*$", body_md)
+    if m:
+        h1 = m.group(1).strip().strip('"')
+        # remove the first H1 line from body to avoid duplicated titles
+        body_md = re.sub(r"(?m)^#\s+.+?\s*$\n?", "", body_md, count=1).lstrip()
+
     now_cn = datetime.now(timezone(timedelta(hours=8)))
     front = {
-        "title": args.title,
+        "title": h1 or args.title,
         "date": now_cn.isoformat(timespec="seconds"),
         "draft": False,
         "categories": [args.industry],
@@ -198,7 +208,7 @@ def main() -> None:
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
     # Prepend cover to body to ensure consistent rendering
-    body = article_md.strip()
+    body = body_md
     if cover_rel:
         body = f"![封面图]({cover_rel})\n\n" + body
 
