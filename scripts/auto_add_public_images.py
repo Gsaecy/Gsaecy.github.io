@@ -33,16 +33,29 @@ def repo_root_from(path: Path) -> Path:
     return Path.cwd()
 
 
+def extract_front_matter_title(md_text: str) -> str:
+    # YAML front matter between --- ... ---
+    m = re.match(r"^---\n(.*?)\n---\n", md_text, flags=re.S)
+    if not m:
+        return ""
+    fm = m.group(1)
+    for line in fm.splitlines():
+        if line.startswith("title:"):
+            return line.split(":", 1)[1].strip().strip('"')
+    return ""
+
+
 def extract_queries(md_text: str) -> List[str]:
-    # Use title and a couple of headings; keep English-ish tokens if available
+    # Prefer front matter title (we may remove H1 from body), then fall back to headings.
     lines = md_text.splitlines()
-    title = ""
+    title = extract_front_matter_title(md_text)
     headings = []
-    for ln in lines[:80]:
-        if ln.startswith("# ") and not title:
+    for ln in lines[:160]:
+        if (not title) and ln.startswith("# "):
             title = ln[2:].strip()
         if ln.startswith("## "):
             headings.append(ln[3:].strip())
+
     base = title or "industry analysis"
 
     # crude domain mapping based on Chinese keywords
@@ -66,10 +79,15 @@ def extract_queries(md_text: str) -> List[str]:
     queries = []
     if hints:
         queries.append(" ".join(hints[:2]))
-    # fall back on title keywords (strip punctuation)
+
+    # Title keywords (strip punctuation). Also add a stable "AI" hint if present.
     base2 = re.sub(r"[\W_]+", " ", base)
+    if "AI" in md_text or "人工智能" in md_text:
+        base2 = ("AI " + base2).strip()
+
     if base2.strip():
         queries.append(base2.strip())
+
     if headings:
         h = re.sub(r"[\W_]+", " ", headings[0])
         if h.strip():
