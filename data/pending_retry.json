@@ -1,8 +1,8 @@
 {
-  "industry": "retail",
-  "topic": "新零售数字化转型与消费趋势",
-  "force_timestamp": "20260207-203608",
-  "next_retry_epoch": 1770509108,
+  "industry": "education",
+  "topic": "在线教育模式创新与未来趋势",
+  "force_timestamp": "20260208-081853",
+  "next_retry_epoch": 1770517149,
   "reason": "workflow_failed",
-  "run": "https://github.com/Gsaecy/gsaecy.github.io/actions/runs/21787625099"
+  "run": "https://github.com/Gsaecy/gsaecy.github.io/actions/runs/21789258160"
 }
