@@ -193,17 +193,26 @@ jobs:
 
           mkdir -p content/posts data/raw
 
+          # 采集 RSS
           python3 scripts/collect_news.py --industry "${INDUSTRY}" --hours 24 --limit 25 --out "${NEWS_JSON}"
 
-          # 用即梦文生图生成封面（失败不阻断发布）
-          COVER_OUT_DIR="static/images/posts/${FILENAME}"
-          COVER_OUT_FILE="${COVER_OUT_DIR}/cover.jpg"
-          COVER_REL="/images/posts/${FILENAME}/cover.jpg"
-          mkdir -p "${COVER_OUT_DIR}" || true
-          if python3 scripts/jimeng_generate_cover.py --slug "${FILENAME}" --title "${TITLE}" --industry "${INDUSTRY}" --out "${COVER_OUT_FILE}"; then
-            python3 scripts/jimeng_usage.py --file data/usage/jimeng_usage.json --mark success || true
-          else
-            python3 scripts/jimeng_usage.py --file data/usage/jimeng_usage.json --mark fail || true
+          COUNT=$(python3 -c "import json; print(json.load(open('${NEWS_JSON}','r',encoding='utf-8')).get('count',0))")
+          echo "RSS collected count=${COUNT} (industry=${INDUSTRY})"
+
+          # 兜底：如果抓不到资讯，从热门话题池子里挑一个高热度主题/行业再试一次
+          if [ "${COUNT}" = "0" ]; then
+            echo "⚠️ 当前行业 RSS=0，启用热门话题池兜底..."
+            read FB_INDUSTRY FB_TOPIC < <(python3 scripts/pick_hot_topic.py --shell)
+            echo "fallback industry=${FB_INDUSTRY} topic=${FB_TOPIC}"
+            INDUSTRY="${FB_INDUSTRY}"
+            TOPIC="${FB_TOPIC}"
+            FILENAME="${INDUSTRY}-${TIMESTAMP}"
+            ORIGINAL_FILE="content/posts/${FILENAME}.md"
+            WECHAT_FILE="content/posts/${FILENAME}-wechat.md"
+            NEWS_JSON="data/raw/news_${FILENAME}.json"
+            python3 scripts/collect_news.py --industry "${INDUSTRY}" --hours 24 --limit 25 --out "${NEWS_JSON}"
+            COUNT=$(python3 -c "import json; print(json.load(open('${NEWS_JSON}','r',encoding='utf-8')).get('count',0))")
+            echo "fallback RSS collected count=${COUNT} (industry=${INDUSTRY})"
           fi
 
           # 标题：必须包含行业，避免读者不知道默认行业
@@ -224,6 +233,17 @@ jobs:
           esac
 
           TITLE="【${IND_CN}】${TOPIC}（${CN_DATE}）"
+
+          # 用即梦文生图生成封面（失败不阻断发布）
+          COVER_OUT_DIR="static/images/posts/${FILENAME}"
+          COVER_OUT_FILE="${COVER_OUT_DIR}/cover.jpg"
+          COVER_REL="/images/posts/${FILENAME}/cover.jpg"
+          mkdir -p "${COVER_OUT_DIR}" || true
+          if python3 scripts/jimeng_generate_cover.py --slug "${FILENAME}" --title "${TITLE}" --industry "${INDUSTRY}" --out "${COVER_OUT_FILE}"; then
+            python3 scripts/jimeng_usage.py --file data/usage/jimeng_usage.json --mark success || true
+          else
+            python3 scripts/jimeng_usage.py --file data/usage/jimeng_usage.json --mark fail || true
+          fi
 
           python3 scripts/generate_news_post.py --in "${NEWS_JSON}" --slug "${FILENAME}" --industry "${INDUSTRY}" --title "${TITLE}" --out "${ORIGINAL_FILE}" --cover "${COVER_REL}"
 
