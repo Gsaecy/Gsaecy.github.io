@@ -5,49 +5,120 @@
 # safe: if false, will never be picked (reserved)
 
 pool:
+  # --- AI / 工具 / 方法论（高频） ---
   - industry: technology
     topic: "AI Agent 落地：从自动化到可控工作流"
-    weight: 95
+    weight: 98
     safe: true
+  - industry: technology
+    topic: "提示词不重要吗？为什么关键是‘问题定义’"
+    weight: 96
+    safe: true
+  - industry: technology
+    topic: "个人知识库到个人操作系统：如何让 AI 持续替你产出"
+    weight: 94
+    safe: true
+  - industry: technology
+    topic: "AI 时代的核心竞争力：判断力、品味与可验证的迭代"
+    weight: 93
+    safe: true
+  - industry: technology
+    topic: "AI 时代如何学习：作品驱动的 30 天路线图"
+    weight: 92
+    safe: true
+  - industry: technology
+    topic: "从0到1搭建内容系统：选题、结构、复盘与复利"
+    weight: 90
+    safe: true
+
+  # --- 商业/增长/组织 ---
   - industry: retail
     topic: "零售 AI：选品、定价、库存的三大杠杆"
-    weight: 90
+    weight: 92
+    safe: true
+  - industry: retail
+    topic: "消费降级下的增长：更高转化来自哪里？"
+    weight: 86
+    safe: true
+  - industry: retail
+    topic: "会员体系怎么做才不‘割’：复购与长期价值"
+    weight: 84
     safe: true
   - industry: manufacturing
     topic: "智能制造：产线数据如何变成利润（OEE/良率/交期）"
-    weight: 88
+    weight: 90
     safe: true
-  - industry: foreign_trade
-    topic: "外贸与航运：运价、关税与供应链重排的影响"
-    weight: 86
+  - industry: manufacturing
+    topic: "供应链管理的 5 个关键指标：看懂周转与交付"
+    weight: 85
     safe: true
   - industry: finance
     topic: "AI 时代的风控：从规则到模型到可解释"
+    weight: 88
+    safe: true
+  - industry: finance
+    topic: "现金流优先：企业如何做‘抗波动’经营"
+    weight: 86
+    safe: true
+
+  # --- 出海 / 外贸 / 航运 ---
+  - industry: foreign_trade
+    topic: "外贸与航运：运价、关税与供应链重排的影响"
+    weight: 90
+    safe: true
+  - industry: foreign_trade
+    topic: "跨境电商的盈利模型：流量、转化、客单、复购"
+    weight: 88
+    safe: true
+  - industry: foreign_trade
+    topic: "从报价到回款：外贸业务的风险点与对策"
     weight: 84
     safe: true
+
+  # --- 教育 / 职业 ---
   - industry: education
     topic: "在线教育 2.0：从获客到交付的效率革命"
-    weight: 82
+    weight: 86
     safe: true
+  - industry: education
+    topic: "职场新人 3 年怎么变值钱：能力栈与作品集"
+    weight: 90
+    safe: true
+  - industry: education
+    topic: "AI 时代的简历与面试：如何证明你能创造结果"
+    weight: 88
+    safe: true
+
+  # --- 医疗 / 生命科学（非敏感、偏产业） ---
   - industry: healthcare
     topic: "医疗AI的真实落点：影像、病历与运营效率"
+    weight: 84
+    safe: true
+  - industry: healthcare
+    topic: "医疗行业数字化：从流程到数据资产"
     weight: 80
     safe: true
-  - industry: automotive
-    topic: "智能汽车：座舱与辅助驾驶的商业化拐点"
+  - industry: reagents
+    topic: "生物试剂：价格体系、渠道变化与国产替代"
     weight: 78
+    safe: true
+  - industry: lab_consumables
+    topic: "科研耗材：供应链、集采与渠道效率"
+    weight: 76
     safe: true
   - industry: scientific_instruments
     topic: "科研仪器采购趋势：国产替代与预算收紧下的机会"
     weight: 76
     safe: true
-  - industry: reagents
-    topic: "生物试剂：价格体系、渠道变化与国产替代"
-    weight: 74
+
+  # --- 汽车 ---
+  - industry: automotive
+    topic: "智能汽车：座舱与辅助驾驶的商业化拐点"
+    weight: 80
     safe: true
-  - industry: lab_consumables
-    topic: "科研耗材：供应链、集采与渠道效率"
-    weight: 72
+  - industry: automotive
+    topic: "车企降本增效：供应链、渠道与软件定义"
+    weight: 78
     safe: true
 
 # Simple sensitive keyword denylist (very conservative). If topic contains any, it will be rejected.
@@ -63,3 +134,8 @@ deny_keywords:
   - "极端"
   - "造反"
   - "推翻"
+  - "暴力"
+  - "诈骗"
+  - "洗钱"
+  - "自杀"
+  - "自残"

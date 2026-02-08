@@ -21,6 +21,7 @@ from __future__ import annotations
 import argparse
 import os
 import random
+import re
 from pathlib import Path
 
 import yaml
@@ -47,7 +48,13 @@ def weighted_choice(items: list[dict]) -> dict:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--pool", default="scripts/hot_topic_pool.yaml")
-    ap.add_argument("--top-k", type=int, default=5)
+    ap.add_argument("--top-k", type=int, default=8)
+    ap.add_argument(
+        "--avoid-recent",
+        type=int,
+        default=20,
+        help="Avoid topics that already appeared in the most recent N posts' titles.",
+    )
     ap.add_argument("--shell", action="store_true")
     args = ap.parse_args()
 
@@ -59,6 +66,25 @@ def main() -> None:
     pool = list(doc.get("pool", []) or [])
     deny = list(doc.get("deny_keywords", []) or [])
 
+    # Collect recent post titles to avoid repeating topics
+    recent_titles: list[str] = []
+    try:
+        posts_dir = Path("content/posts")
+        if posts_dir.exists() and args.avoid_recent > 0:
+            paths = sorted(posts_dir.glob("*.md"), key=lambda p: p.stat().st_mtime, reverse=True)[: args.avoid_recent]
+            for p in paths:
+                txt = p.read_text(encoding="utf-8")
+                m = re.match(r"^---\n(.*?)\n---\n", txt, flags=re.S)
+                if not m:
+                    continue
+                fm = m.group(1)
+                for line in fm.splitlines():
+                    if line.startswith("title:"):
+                        recent_titles.append(line.split(":", 1)[1].strip().strip('"'))
+                        break
+    except Exception:
+        pass
+
     candidates = []
     for x in pool:
         if not x.get("safe", True):
@@ -68,6 +94,8 @@ def main() -> None:
         if not topic or not industry:
             continue
         if contains_any(topic, deny):
+            continue
+        if recent_titles and any(topic in (t or "") for t in recent_titles):
             continue
         candidates.append(x)
 
