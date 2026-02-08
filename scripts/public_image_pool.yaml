@@ -1,0 +1,168 @@
+version: 1
+source: openverse
+pool:
+- id: tech_ai_circuit_1
+  industry: technology
+  tags:
+  - AI
+  - 人工智能
+  - chip
+  - circuit
+  - semiconductor
+  - data center
+  - cloud
+  - 模型
+  title: AI / 芯片 / 电路板抽象图
+  url: https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTExL2ZsNTIyMTExMTgzMjMtaW1hZ2UuanBn.jpg
+  image_url: https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTExL2ZsNTIyMTExMTgzMjMtaW1hZ2UuanBn.jpg
+  license: CC0
+  license_url: https://creativecommons.org/publicdomain/zero/1.0/
+  provider: rawpixel
+  weight: 100
+- id: fin_risk_chart_1
+  industry: finance
+  tags:
+  - 风控
+  - risk
+  - compliance
+  - regulation
+  - fintech
+  - 支付
+  - 银行
+  - 现金流
+  title: 金融风控/合规抽象图
+  url: https://live.staticflickr.com/7512/26558780710_548462e09d.jpg
+  image_url: https://live.staticflickr.com/7512/26558780710_548462e09d.jpg
+  license: BY
+  license_url: https://creativecommons.org/licenses/by/2.0/
+  provider: flickr
+  weight: 100
+- id: health_medtech_1
+  industry: healthcare
+  tags:
+  - 医疗
+  - healthcare
+  - medtech
+  - hospital
+  - diagnosis
+  - AI
+  title: 医疗科技/诊断抽象图
+  url: https://live.staticflickr.com/65535/52209720104_987ef019d4_b.jpg
+  image_url: https://live.staticflickr.com/65535/52209720104_987ef019d4_b.jpg
+  license: CC0
+  license_url: https://creativecommons.org/publicdomain/zero/1.0/
+  provider: flickr
+  weight: 100
+- id: edu_learning_1
+  industry: education
+  tags:
+  - 学习
+  - education
+  - online learning
+  - 课程
+  - 技能
+  - 职业
+  title: 学习/在线教育抽象图
+  url: https://live.staticflickr.com/5519/10164585803_7fb8cceb75_b.jpg
+  image_url: https://live.staticflickr.com/5519/10164585803_7fb8cceb75_b.jpg
+  license: CC0
+  license_url: https://creativecommons.org/publicdomain/zero/1.0/
+  provider: flickr
+  weight: 100
+- id: auto_ev_1
+  industry: automotive
+  tags:
+  - 汽车
+  - EV
+  - 新能源
+  - battery
+  - charging
+  - autonomous
+  title: 新能源车/电池/充电抽象图
+  url: https://live.staticflickr.com/65535/48634089611_85d03aaa8d_b.jpg
+  image_url: https://live.staticflickr.com/65535/48634089611_85d03aaa8d_b.jpg
+  license: BY
+  license_url: https://creativecommons.org/licenses/by/2.0/
+  provider: flickr
+  weight: 100
+- id: retail_store_1
+  industry: retail
+  tags:
+  - 零售
+  - retail
+  - ecommerce
+  - 库存
+  - 定价
+  - 选品
+  - supply chain
+  title: 零售/电商/门店抽象图
+  url: https://live.staticflickr.com/5168/5278137532_ccd231c05e_b.jpg
+  image_url: https://live.staticflickr.com/5168/5278137532_ccd231c05e_b.jpg
+  license: BY
+  license_url: https://creativecommons.org/licenses/by/2.0/
+  provider: flickr
+  weight: 100
+- id: mfg_factory_1
+  industry: manufacturing
+  tags:
+  - 制造
+  - factory
+  - robot
+  - automation
+  - OEE
+  - quality
+  title: 工厂/自动化/机器人抽象图
+  url: https://upload.wikimedia.org/wikipedia/commons/4/43/Fire_at_Smart_factory.jpg
+  image_url: https://upload.wikimedia.org/wikipedia/commons/4/43/Fire_at_Smart_factory.jpg
+  license: CC0
+  license_url: https://creativecommons.org/publicdomain/zero/1.0/deed.en/
+  provider: wikimedia
+  weight: 100
+- id: trade_shipping_1
+  industry: foreign_trade
+  tags:
+  - 外贸
+  - shipping
+  - logistics
+  - tariff
+  - customs
+  - export
+  title: 航运/港口/集装箱抽象图
+  url: https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA3L3Vwd2s2MjI2OTY3Ni13aWtpbWVkaWEtaW1hZ2UuanBn.jpg
+  image_url: https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA3L3Vwd2s2MjI2OTY3Ni13aWtpbWVkaWEtaW1hZ2UuanBn.jpg
+  license: CC0
+  license_url: https://creativecommons.org/publicdomain/zero/1.0/
+  provider: rawpixel
+  weight: 100
+- id: sci_instrument_1
+  industry: scientific_instruments
+  tags:
+  - 仪器
+  - lab
+  - microscope
+  - spectrometer
+  - 科研
+  - 采购
+  title: 科研仪器/实验室抽象图
+  url: https://live.staticflickr.com/2815/11585712973_ebaee70e86_b.jpg
+  image_url: https://live.staticflickr.com/2815/11585712973_ebaee70e86_b.jpg
+  license: CC0
+  license_url: https://creativecommons.org/publicdomain/zero/1.0/
+  provider: flickr
+  weight: 100
+- id: bio_reagent_1
+  industry: reagents
+  tags:
+  - 试剂
+  - reagent
+  - biotech
+  - PCR
+  - protein
+  - lab
+  title: 生物试剂/生命科学抽象图
+  url: https://upload.wikimedia.org/wikipedia/commons/6/65/Polyethylene_Glycol_400_%28PEG-400%29_Reagent_Bottle.jpg
+  image_url: https://upload.wikimedia.org/wikipedia/commons/6/65/Polyethylene_Glycol_400_%28PEG-400%29_Reagent_Bottle.jpg
+  license: CC0
+  license_url: https://creativecommons.org/publicdomain/zero/1.0/deed.en/
+  provider: wikimedia
+  weight: 100

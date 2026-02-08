@@ -26,7 +26,7 @@ SortBy = "default"
 
 [sidebar]
   # emoji = "🤖"  # disabled
-  subtitle = "每日 AI 驱动的行业深度分析｜覆盖 科技 / 金融 / 汽车 / 医疗 / 教育 / 零售 / 制造 / 外贸 / 科研仪器 / 试剂 / 科研耗材"
+  subtitle = "每日 AI 驱动的行业深度分析｜TOP10：科技AI / 金融与风控 / 汽车新能源 / 医疗健康 / 教育与职场 / 消费零售 / 智能制造 / 出海外贸 / 供应链物流 / 科研与生命科学"
   avatar   = "img/avatar.png"
 
 [article]

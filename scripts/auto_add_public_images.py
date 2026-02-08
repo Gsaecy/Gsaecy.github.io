@@ -110,27 +110,48 @@ def already_has_public_images(md_text: str) -> bool:
     )
 
 
-def insert_after_intro(lines: List[str], block: List[str]) -> List[str]:
-    """Insert block after front matter (if any) or after the first horizontal rule.
+def insert_near_explainer_section(lines: List[str], block: List[str]) -> List[str]:
+    """Insert block *not* at the very top.
 
-    Important: Hugo YAML front matter is delimited by two '---' lines at the top.
-    We must NOT insert between them, otherwise the page front matter breaks.
+    Requirement:
+    - Do NOT place 2 images at the beginning (cover is already there).
+
+    Strategy:
+    - insert after the first matching H2 section among: 数据/指标/原理/方法/机制
+    - else insert after the 2nd H2
+    - else insert after front matter
+
+    Important: never insert inside YAML front matter.
     """
 
-    # If file starts with front matter, find the closing delimiter.
+    # find end of front matter
+    fm_end = 0
     if lines and lines[0].strip() == "---":
         for i in range(1, min(len(lines), 200)):
             if lines[i].strip() == "---":
-                # insert after the closing front matter line
-                return lines[: i + 1] + [""] + block + [""] + lines[i + 1 :]
+                fm_end = i + 1
+                break
 
-    # Fallback: insert after the first horizontal rule in the first 200 lines
-    for i in range(min(len(lines), 200)):
-        if lines[i].strip() == "---":
+    # find H2 anchors
+    h2_idx = []
+    for i, ln in enumerate(lines):
+        if ln.startswith("## "):
+            h2_idx.append(i)
+
+    # preferred keywords
+    keywords = ["数据", "指标", "原理", "机制", "方法", "模型", "技术栈"]
+    for i in h2_idx:
+        if any(k in lines[i] for k in keywords):
             return lines[: i + 1] + [""] + block + [""] + lines[i + 1 :]
 
-    # Otherwise just prepend
-    return block + [""] + lines
+    if len(h2_idx) >= 2:
+        i = h2_idx[1]
+        return lines[: i + 1] + [""] + block + [""] + lines[i + 1 :]
+
+    if fm_end:
+        return lines[:fm_end] + [""] + block + [""] + lines[fm_end:]
+
+    return lines + [""] + block
 
 
 def build_block(rel_url: str, alt: str, fig_no: int, source_line: str) -> List[str]:
@@ -195,7 +216,7 @@ def main() -> None:
                 fig_no = max(int(x) for x in m) + 1
 
             block = build_block(rel_url, alt, fig_no, source_line)
-            lines2 = insert_after_intro(lines, block)
+            lines2 = insert_near_explainer_section(lines, block)
             md_path.write_text("\n".join(lines2) + "\n", encoding="utf-8")
             print(f"Inserted default cover image into {md_path}")
             return
@@ -223,7 +244,7 @@ def main() -> None:
         fig_no = max(int(x) for x in m) + 1
 
     block = build_block(rel_url, alt, fig_no, source_line)
-    lines2 = insert_after_intro(lines, block)
+    lines2 = insert_near_explainer_section(lines, block)
 
     md_path.write_text("\n".join(lines2) + "\n", encoding="utf-8")
     print(f"Inserted 1 public image into {md_path}")
